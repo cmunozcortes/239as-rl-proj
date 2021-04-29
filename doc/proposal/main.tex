@@ -78,9 +78,39 @@
   must be limited to one paragraph.
 \end{abstract}
 
-\section{Submission of papers to NeurIPS 2021}
+\section{Description}
 
-Please read the instructions below carefully and follow them faithfully.
+% TODO: need to work out and fix citations later
+
+The objective of this project is to do a survey and summary of the Hasselt et al. (2015)
+paper on \textit{Deep Reinforcement Learning with Double Q-learning}. Q-learning is one
+of the most popular reinforcement learning algorithms, however it known to produce 
+overoptimistic value estimates. Overoptimistic value estimates are not necessarily problematic,
+provided that all values are uniformly high and the relative action ranking is 
+preserved. Hasselt et al. (2015) demonstrated that the DQN algorithm, which combines 
+Q-learning with a neural network, overestimates value estimates substantially. Additionally, 
+Hasselt et al. (2015) proved that these DQN overestimates are not uniform, and differ for different states
+and actions. After empirically demonstrating the flaw in Q-learning algorithms, Hasselt et al. (2015) 
+go on to construct a new algorithm called Double DQN, which combines Double Q-learning with a 
+neural network. The Double DQN produces more accurate value estimates than DQN and better policies.
+
+The Hasselt et al. (2015) paper is empirically demonstrates that  
+DQN, which uses Q-learning, produces substantially overoptimistic value estimates and generally poor policies. 
+Additionally, the paper proposes a novel algorithm, Double DQN, which corrects the problems
+of the DQN algorithm in terms of value estimation and policy creation. Considering the popularity 
+of Q-learning, the development of the Double DQN algorithm is an important step forward in
+Reinforcement Learning algorithms. This project will briefly describe the methodology and history of
+the algorithms described in Hasselt et al. (2015), namely Q-learning, DQN, Double Q-learning, and Double DQN. 
+Additionally, this project will implement the DQN and Double DQN algorithms in a test environment.
+
+\subsection{Algorithm Implementation}
+
+% TODO: Describe how we will implement the algorithms. Indicate that pseudocode of the DQN and
+% Double DQN implementation will be included in project report. Also indicate that we will
+% implement a comparison of DQN and Double DQN is a simple test environment (which environment?)
+
+% NATHAN/CHRIS/RYAN QUESTION: have you done an research on a simple test environment we can use
+% for the project? (project guideline suggest Open-AI gym). 
 
 \subsection{Style}
 
