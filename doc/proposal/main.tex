@@ -112,6 +112,14 @@ replacing the target $Y_{t}^{DoubleDQN}=R_{t+1} + \lambda Q(S_{t+1}, argmaxQ(S_{
 Compared to the original formulation of Double Q-Learning, in Double DQN the weights of the second network $\theta _{t}^{'}$ 
 are replaced with the weights of the target network $\theta _{t}^{-}$ for the evaluation of the current greedy policy.
 
+\begin{figure}[!htbp]
+    \begin{center}
+    \includegraphics[width=8cm]{alg1_ClippedDDQ_Fujimoto.png}
+    \end{center}
+    \caption{Clipped Double Q-learning}
+    \label{fig:numcomments}
+\end{figure}
+
 Clipped Double Q-learning algorithm will be introduced and implemented in the project to address function approximation
 errors. Clipped Double Q-learning algorithm presented by Fujimoto et al. has two major benefits. First, it avoids overestimation
 by taking the minimum of the two next-state action values produced by our two Q networks. When the Q estimate from one 
