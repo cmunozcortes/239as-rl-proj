@@ -33,6 +33,9 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 
+% Set bibliography style for natbib (called out by the nips style file)
+\bibliographystyle{abbrvnat}
+
 % argmax and argmin operators
 \DeclareMathOperator*{\argmax}{argmax}
 \DeclareMathOperator*{\argmin}{argmin}
@@ -50,7 +53,7 @@
 
 \author{%
     Ryan Chu \\
-    \texttt{ryanchu@ucla.edu}\\ % TODO update Ryan's email
+    \texttt{chu\_ryan@yahoo.com}\\
     \And
     My-Quan Hong \\
     \texttt{myquan@yahoo.com} \\
@@ -67,32 +70,39 @@
 
 \maketitle
 
-\begin{abstract}
-  The abstract paragraph should be indented \nicefrac{1}{2}~inch (3~picas) on
-  both the left- and right-hand margins. Use 10~point type, with a vertical
-  spacing (leading) of 11~points.  The word \textbf{Abstract} must be centered,
-  bold, and in point size 12. Two line spaces precede the abstract. The abstract
-  must be limited to one paragraph.
-\end{abstract}
-
 \section{Description}
 
-% ODO: need to work out and fix citations later
+% TODO: need to work out and fix citations later
 
-The objective of this project is to do a survey and summary of the Hasselt et
-al. (2015) paper on \textit{Deep Reinforcement Learning with Double Q-learning}.
-Q-learning is one of the most popular reinforcement learning algorithms, however
-it known to produce overoptimistic value estimates. Overoptimistic value
+% TODO Answer the following questions:
+% 1. What is the problem that you will be investigating? why is it interesting?
+% 2. What data, simulator, or real world RL domain will you be looking at?
+% 3. What method, algorithm, or theoretical analysis are you proposing? how will
+%    you use existing implementations? how do you plan to improve or modify such
+%    implementations?
+% 4. What literature will you examine to provide context and background?
+% 5. How will you evaluate your results? qualitatively, what kind of results do
+%    you expect (plots or figures)? quantitatively, what kind of analysis will
+%    you use to evaluate and/or cmpare your results (e.g. what performance
+%    metrics or statistical test?)
+
+% This answers the first question
+The objective of this project is to evaluate two algorithms that improve upon
+Deep Q Networks (DQN): Double DQN (\citet{van2016deep}) and Clipped Double
+DQN (\citet{fujimoto2018addressing}).
+
+% TODO Why is this interesting?
+Q-learning, one of the most popular reinforcement learning algorithms,
+is known to produce overoptimistic value estimates. Overoptimistic value
 estimates are not necessarily problematic, provided that all values are
-uniformly high and the relative action ranking is preserved. Hasselt et al.
-(2015) demonstrated that the DQN algorithm, which combines Q-learning with a
-neural network, overestimates value estimates substantially. Additionally,
-Hasselt et al. (2015) proved that these DQN overestimates are not uniform, and
-differ for different states and actions. After empirically demonstrating the
-flaw in Q-learning algorithms, Hasselt et al. (2015) go on to construct a new
-algorithm called Double DQN, which combines Double Q-learning with a neural
-network. The Double DQN produces more accurate value estimates than DQN and
-better policies.
+uniformly high and the relative action ranking is preserved.
+\citet{van2016deep} demonstrated that the DQN algorithm, which combines
+Q-learning with a neural network, overestimates value estimates substantially.
+Additionally, they proved that these DQN overestimates are not
+uniform, and differ for different states and actions. After empirically
+demonstrating the flaw in Q-learning algorithms, they proposed a new algorithm
+called Double DQN, which combines Double Q-learning with a neural network. The 
+Double DQN produces more accurate value estimates than DQN and better policies.
 
 The Hasselt et al. (2015) paper is empirically demonstrates that  DQN, which
 uses Q-learning, produces substantially overoptimistic value estimates and
@@ -105,7 +115,7 @@ methodology and history of the algorithms described in Hasselt et al. (2015),
 namely Q-learning, DQN, Double Q-learning, and Double DQN.  Additionally, this
 project will implement the DQN and Double DQN algorithms in a test environment.
 
-\subsection{Algorithm Implementation}
+\section{Algorithm Implementation}
 
 % TODO: Describe how we will implement the algorithms. Indicate that pseudocode
 % of the DQN and Double DQN implementation will be included in project report.
@@ -149,5 +159,8 @@ al. presents another benefit of this setting: the minimum operator should
 provide higher value to states with lower variance estimation error.  This means
 that the minimization will lead to a preference for states with low-variance
 value estimates, leading to safer policy updates with stable learning targets.
+
+% Import bibligraphy from ref.bib
+\bibliography{ref}
 
 \end{document}
