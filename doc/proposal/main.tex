@@ -109,8 +109,8 @@ operation in the target into action selection and action evaluation. We evaluate
 online network, but we use the target network to estimate its value. The update is the same as for DQN, but 
 replacing the target $Y_{t}^{DoubleDQN}=R_{t+1} + \lambda Q(S_{t+1}, argmaxQ(S_{t+1},a;\theta _{t});\theta _{t}^{-})$ with:
 
-Compared to the original formulation of Double Q-Learning, in Double DQN the weights of the second network $\theta _{t}$ 
-are replaced with the weights of the target network $\theta$ for the evaluation of the current greedy policy.
+Compared to the original formulation of Double Q-Learning, in Double DQN the weights of the second network $\theta _{t}^{'}$ 
+are replaced with the weights of the target network $\theta _{t}^{-}$ for the evaluation of the current greedy policy.
 
 \subsection{Style}
 
