@@ -162,16 +162,13 @@ value estimates, leading to safer policy updates with stable learning targets.
 
 \section{Literature Review}
 
-Clipped Double Q-learning algorithm will be introduced and implemented in the
-project to address function approximation errors. Clipped Double Q-learning
-algorithm presented by Fujimoto et al. has two major benefits. First, it avoids
-overestimation by taking the minimum of the two next-state action values
-produced by our two Q networks. When the Q estimate from one is greater than the
-other, we reduce it to the minimum, avoiding overestimation. Second, Fujimoto et
-al. presents another benefit of this setting: the minimum operator should
-provide higher value to states with lower variance estimation error.  This means
-that the minimization will lead to a preference for states with low-variance
-value estimates, leading to safer policy updates with stable learning targets.
+The popular Q-learning algorithm is known to overestimate action values under certain conditions. It was not previously known whether, in practice, such overestimations are common, whether they harm performance, and whether they can generally be prevented. Deep Reinforcement Learning with Double Q-learning presented the background of DQN algorithm, which combines Q-learning with a deep neural network, suffers from substantial overestimations in some games in the Atari 2600 domain (\citet{mnih2013playing}).
+
+
+In value-based reinforcement learning methods such as deep Q-learning, function approximation errors are known to lead to overestimated value estimates and suboptimal policies. We show that this problem persists in an actor-critic setting and propose novel mechanisms to minimize its effects on both the actor and critic. Clipped Double DQN algorithm takes the minimum value between a pair of critics to restrict overestimation and delays policy updates to reduce per-update error. We evaluate our method on the suite of OpenAI gym tasks, outperforming the state of the art in every environment tested (\citet{fujimoto2018addressing}).
+
+
+
 
 % Import bibligraphy from ref.bib
 \bibliography{ref}
