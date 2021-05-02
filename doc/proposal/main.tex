@@ -160,6 +160,19 @@ provide higher value to states with lower variance estimation error.  This means
 that the minimization will lead to a preference for states with low-variance
 value estimates, leading to safer policy updates with stable learning targets.
 
+\section{Literature Review}
+
+Clipped Double Q-learning algorithm will be introduced and implemented in the
+project to address function approximation errors. Clipped Double Q-learning
+algorithm presented by Fujimoto et al. has two major benefits. First, it avoids
+overestimation by taking the minimum of the two next-state action values
+produced by our two Q networks. When the Q estimate from one is greater than the
+other, we reduce it to the minimum, avoiding overestimation. Second, Fujimoto et
+al. presents another benefit of this setting: the minimum operator should
+provide higher value to states with lower variance estimation error.  This means
+that the minimization will lead to a preference for states with low-variance
+value estimates, leading to safer policy updates with stable learning targets.
+
 % Import bibligraphy from ref.bib
 \bibliography{ref}
 
