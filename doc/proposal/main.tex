@@ -13,10 +13,10 @@
 
 % to compile a preprint version, e.g., for submission to arXiv, add add the
 % [preprint] option:
-% \usepackage[preprint]{../neurips/neurips_2021}
+\usepackage[preprint]{../neurips/neurips_2021}
 
 % to compile a camera-ready version, add the [final] option, e.g.:
-\usepackage[final]{../neurips/neurips_2021}
+%\usepackage[final]{../neurips/neurips_2021}
 
 % to avoid loading the natbib package, add option nonatbib:
 %    \usepackage[nonatbib]{neurips_2021}
@@ -70,61 +70,82 @@
 
 \maketitle
 
-\section{Description}
+\section{Project Description}
 
-% TODO: need to work out and fix citations later
-
-% TODO Answer the following questions:
+% Answer the following questions:
 % 1. What is the problem that you will be investigating? why is it interesting?
+%    Answered in description section (MQ)
 % 2. What data, simulator, or real world RL domain will you be looking at?
+%    Answered in description section (Chris)
 % 3. What method, algorithm, or theoretical analysis are you proposing? how will
 %    you use existing implementations? how do you plan to improve or modify such
 %    implementations?
+%    Answered in description (MQ) and algorithm implementation (Nathan) 
 % 4. What literature will you examine to provide context and background?
+%    Anwered in description and algorithm implementation (MQ and Nathan)
 % 5. How will you evaluate your results? qualitatively, what kind of results do
 %    you expect (plots or figures)? quantitatively, what kind of analysis will
 %    you use to evaluate and/or cmpare your results (e.g. what performance
 %    metrics or statistical test?)
+%    TODO: Ryan
 
 % This answers the first question
-The objective of this project is to evaluate two algorithms that improve upon
-Deep Q Networks (DQN): Double DQN (\citet{van2016deep}) and Clipped Double
-DQN (\citet{fujimoto2018addressing}).
+The objective of this project is to evaluate two different algorithms that
+address overestimation bias in deep Q-learning (DQN) (\citet{mnih2015human}).
+The first one is Double DQN (\citet{van2016deep}), and the second is Clipped
+Double Q-learning (\citet{fujimoto2018addressing}).
 
-% TODO Why is this interesting?
-Q-learning, one of the most popular reinforcement learning algorithms,
-is known to produce overoptimistic value estimates. Overoptimistic value
-estimates are not necessarily problematic, provided that all values are
-uniformly high and the relative action ranking is preserved.
-\citet{van2016deep} demonstrated that the DQN algorithm, which combines
-Q-learning with a neural network, overestimates value estimates substantially.
-Additionally, they proved that these DQN overestimates are not
-uniform, and differ for different states and actions. After empirically
-demonstrating the flaw in Q-learning algorithms, they proposed a new algorithm
-called Double DQN, which combines Double Q-learning with a neural network. The 
-Double DQN produces more accurate value estimates than DQN and better policies.
+Q-learning, one of the most popular reinforcement learning algorithms, is known
+to produce overoptimistic value estimates. Overoptimistic value estimates are
+not necessarily problematic, provided that all values are uniformly high and the
+relative action ranking is preserved.  \citet{van2016deep} demonstrated that the
+DQN algorithm, which combines Q-learning with a neural network, overestimates
+value estimates substantially.  Additionally, they proved that these DQN
+overestimates are not uniform, and differ for different states and actions.
+After empirically demonstrating the flaw in Q-learning algorithms, they proposed
+a new algorithm called Double DQN, which combines Double Q-learning with a
+neural network. The Double DQN produces more accurate value estimates than DQN
+and better policies.
 
-The Hasselt et al. (2015) paper is empirically demonstrates that  DQN, which
-uses Q-learning, produces substantially overoptimistic value estimates and
-generally poor policies.  Additionally, the paper proposes a novel algorithm,
-Double DQN, which corrects the problems of the DQN algorithm in terms of value
-estimation and policy creation. Considering the popularity of Q-learning, the
-development of the Double DQN algorithm is an important step forward in
-Reinforcement Learning algorithms. This project will briefly describe the
-methodology and history of the algorithms described in Hasselt et al. (2015),
-namely Q-learning, DQN, Double Q-learning, and Double DQN.  Additionally, this
-project will implement the DQN and Double DQN algorithms in a test environment.
+Clipped Double Q-learning is another algorithm that addresses overestimation in
+DQN. it prevents overestimation by taking the minimum of the two next-state
+action values produced by our two Q networks.  When the Q estimate from one is
+greater than the other, we reduce it to the minimum, thus preventing
+overestimation.  Another benefit of this algorithm is that the minimum operator
+provides higher value to states with lower variance estimation error.  This
+means that the minimization will lead to a preference for states with
+low-variance value estimates, resulting in safer policy updates with stable
+learning targets.
 
-\section{Algorithm Implementation}
+%The Hasselt et al. (2015) paper is empirically demonstrates that  DQN, which
+%uses Q-learning, produces substantially overoptimistic value estimates and
+%generally poor policies.  Additionally, the paper proposes a novel algorithm,
+%Double DQN, which corrects the problems of the DQN algorithm in terms of value
+%estimation and policy creation.
 
-% TODO: Describe how we will implement the algorithms. Indicate that pseudocode
-% of the DQN and Double DQN implementation will be included in project report.
-% Also indicate that we will implement a comparison of DQN and Double DQN is a
-% simple test environment (which environment?)
 
-% NATHAN/CHRIS/RYAN QUESTION: have you done an research on a simple test
-% environment we can use for the project? (project guideline suggest Open-AI
-% gym). 
+Considering the popularity of Q-learning, the development of the Double DQN
+algorithm is an important step forward in Reinforcement Learning.
+
+This project will briefly describe the methodology and history of the algorithms
+described in \citet{van2016deep}, namely Q-learning, DQN, Double Q-learning, and
+Double DQN, as well as Clipped Double Q-learning proposed in
+\citet{fujimoto2018addressing}. 
+
+
+\section{Algorithm Implementation and Evaluation}
+
+In addition to describing the algorithms, we will implement them (or use an
+existing implementation) to compare their performance in selected games from the
+Arcade Learning Environment (ALE) (\citet{bellemare2013arcade}) and selected
+environments from OpenAI Gym (\citet{brockman2016openai}).
+
+% TODO: Ryan to add description of metrics we will use to compare results
+% between algorithm implementations. Answer following question: how will you
+% evaluate your results. Qualitatively, what kind of results do you expect (e.g.
+% plots or figures)? Quantitatively, what kind of analysis will you use to
+% evaluate and/or compare your results (e.g. what performance metrics or
+% statistical tests)?
 
 A Double Deep Q-Network, or Double DQN utilises Double Q-learning to reduce
 overestimation by decomposing the max operation in the target into action
@@ -141,6 +162,13 @@ weights of the second network $\theta _{t}^{'}$ are replaced with the weights of
 the target network $\theta_{t}^{-}$ for the evaluation of the current greedy
 policy.
 
+In addition, we will implement and evaluate the Clipped Double Q-learning
+algorithm (\citet{fujimoto2018addressing}), which has two major benefits over
+Double Q-learning.
+
+% Clipped double q-learning algorithm pseudo code
+% Note: for the final report, we need to include a pseudo-code block instead of
+% a screenshot from the paper
 \begin{figure}[!htbp]
     \begin{center}
     \includegraphics[width=8cm]{alg1_ClippedDDQ_Fujimoto.png}
@@ -149,26 +177,25 @@ policy.
     \label{fig:numcomments}
 \end{figure}
 
-Clipped Double Q-learning algorithm will be introduced and implemented in the
-project to address function approximation errors. Clipped Double Q-learning
-algorithm presented by Fujimoto et al. has two major benefits. First, it avoids
-overestimation by taking the minimum of the two next-state action values
-produced by our two Q networks. When the Q estimate from one is greater than the
-other, we reduce it to the minimum, avoiding overestimation. Second, Fujimoto et
-al. presents another benefit of this setting: the minimum operator should
-provide higher value to states with lower variance estimation error.  This means
-that the minimization will lead to a preference for states with low-variance
-value estimates, leading to safer policy updates with stable learning targets.
-
 \section{Literature Review}
 
-The popular Q-learning algorithm is known to overestimate action values under certain conditions. It was not previously known whether, in practice, such overestimations are common, whether they harm performance, and whether they can generally be prevented. Deep Reinforcement Learning with Double Q-learning presented the background of DQN algorithm, which combines Q-learning with a deep neural network, suffers from substantial overestimations in some games in the Atari 2600 domain (\citet{mnih2013playing}).
+The popular Q-learning algorithm is known to overestimate action values under
+certain conditions. It was not previously known whether, in practice, such
+overestimations are common, whether they harm performance, and whether they can
+generally be prevented. Deep Reinforcement Learning with Double Q-learning
+presented the background of DQN algorithm, which combines Q-learning with a deep
+neural network, suffers from substantial overestimations in some games in the
+Atari 2600 domain (\citet{mnih2013playing}).
 
-
-In value-based reinforcement learning methods such as deep Q-learning, function approximation errors are known to lead to overestimated value estimates and suboptimal policies. We show that this problem persists in an actor-critic setting and propose novel mechanisms to minimize its effects on both the actor and critic. Clipped Double DQN algorithm takes the minimum value between a pair of critics to restrict overestimation and delays policy updates to reduce per-update error. We evaluate our method on the suite of OpenAI gym tasks, outperforming the state of the art in every environment tested (\citet{fujimoto2018addressing}).
-
-
-
+In value-based reinforcement learning methods such as deep Q-learning, function
+approximation errors are known to lead to overestimated value estimates and
+suboptimal policies. We show that this problem persists in an actor-critic
+setting and propose novel mechanisms to minimize its effects on both the actor
+and critic. Clipped Double DQN algorithm takes the minimum value between a pair
+of critics to restrict overestimation and delays policy updates to reduce
+per-update error. We evaluate our method on the suite of OpenAI gym tasks,
+outperforming the state of the art in every environment tested
+(\citet{fujimoto2018addressing}).
 
 % Import bibligraphy from ref.bib
 \bibliography{ref}
