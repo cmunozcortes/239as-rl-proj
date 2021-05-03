@@ -52,8 +52,8 @@
 % \AND instead of \And before the third author name.
 
 \author{%
-    Ryan Chu \\
-    \texttt{chu\_ryan@yahoo.com}\\
+    Ryan Chau \\
+    \texttt{chau\_ryan@yahoo.com}\\
     \And
     My-Quan Hong \\
     \texttt{myquan@yahoo.com} \\
@@ -162,9 +162,12 @@ weights of the second network $\theta _{t}^{'}$ are replaced with the weights of
 the target network $\theta_{t}^{-}$ for the evaluation of the current greedy
 policy.
 
-In addition, we will implement and evaluate the Clipped Double Q-learning
-algorithm (\citet{fujimoto2018addressing}), which has two major benefits over
-Double Q-learning.
+To evaluate the results of Double Q-learning, we will display the value estimates for DQN and Double DQN on multiple ALE games.  These results will be shown in a plot overlaying both of the estimates for DQN and Double DQN at each training step. For determination of value accuracy, ground truth values will be displayed on the same plot by computing cumulative rewards for running the best learned policies at each step. We will also display a plot with the scores obtained at each training step from following DQN and Double DQN methods.
+
+
+
+In addition, we will implement the Clipped Double Q-learning
+algorithm (\citet{fujimoto2018addressing}). 
 
 % Clipped double q-learning algorithm pseudo code
 % Note: for the final report, we need to include a pseudo-code block instead of
@@ -176,6 +179,8 @@ Double Q-learning.
     \caption{Clipped Double Q-learning}
     \label{fig:numcomments}
 \end{figure}
+
+To evaluate results for the Clipped Double Q-learning method, we will measure its performance against Q-learning through environments from OpenAI Gym. Each algorithm will be applied to the selected environments and be run for 1 million time steps, with the average reward over 10 episodes being calculated every 5000 time steps. The max average returns for the two algorithms will be displayed in a table. Learning curves will also be shown on plots to track algorithm performance across the time step intervals.
 
 \section{Literature Review}
 
