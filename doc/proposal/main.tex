@@ -82,18 +82,18 @@
 %    implementations?
 %    Answered in description (MQ) and algorithm implementation (Nathan) 
 % 4. What literature will you examine to provide context and background?
-%    Anwered in description and algorithm implementation (MQ and Nathan)
+%    Answered in description and algorithm implementation (MQ and Nathan)
 % 5. How will you evaluate your results? qualitatively, what kind of results do
 %    you expect (plots or figures)? quantitatively, what kind of analysis will
-%    you use to evaluate and/or cmpare your results (e.g. what performance
+%    you use to evaluate and/or compare your results (e.g. what performance
 %    metrics or statistical test?)
 %    TODO: Ryan
 
 % This answers the first question
 The objective of this project is to evaluate two different algorithms that
 address overestimation bias in deep Q-learning (DQN) (\citet{mnih2015human}).
-The two algorithms to be evaluated are Double DQN (\citet{van2016deep}) and Clipped
-Double Q-learning (\citet{fujimoto2018addressing}).
+The two algorithms to be evaluated are Double DQN (\citet{van2016deep}) and
+Clipped Double Q-learning (\citet{fujimoto2018addressing}).
 
 Q-learning, one of the most popular reinforcement learning algorithms, is known
 to produce overoptimistic value estimates. Overoptimistic value estimates are
@@ -124,12 +124,12 @@ learning targets.
 %estimation and policy creation.
 
 
-Considering the popularity of Q-learning, the development of the Double DQN
-and Clipped Double Q-learning algorithm is an important step forward in Reinforcement Learning. 
-This project will briefly describe the methodology and history of the algorithms
-described in \citet{van2016deep}, namely Q-learning, DQN, Double Q-learning, and
-Double DQN, as well as the Clipped Double Q-learning algorithm proposed in
-\citet{fujimoto2018addressing}. 
+Considering the popularity of Q-learning, the development of the Double DQN and
+Clipped Double Q-learning algorithm is an important step forward in
+Reinforcement Learning. This project will briefly describe the methodology and
+history of the algorithms described in \citet{van2016deep}, namely Q-learning,
+DQN, Double Q-learning, and Double DQN, as well as the Clipped Double Q-learning
+algorithm proposed in \citet{fujimoto2018addressing}. 
 
 
 \section{Algorithm Implementation and Evaluation}
@@ -139,14 +139,8 @@ existing implementation) to compare their performance in selected games from the
 Arcade Learning Environment (ALE) (\citet{bellemare2013arcade}) and selected
 environments from OpenAI Gym (\citet{brockman2016openai}).
 
-% TODO: Ryan to add description of metrics we will use to compare results
-% between algorithm implementations. Answer following question: how will you
-% evaluate your results. Qualitatively, what kind of results do you expect (e.g.
-% plots or figures)? Quantitatively, what kind of analysis will you use to
-% evaluate and/or compare your results (e.g. what performance metrics or
-% statistical tests)?
-
-A Double Deep Q-Network, or Double DQN utilises Double Q-learning to reduce
+\subsection{Double DQN}
+A Double Deep Q-Network, or Double DQN utilizes Double Q-learning to reduce
 overestimation by decomposing the max operation in the target into action
 selection and action evaluation. We evaluate the greedy policy according to the
 online network, but we use the target network to estimate its value. The update
@@ -161,10 +155,15 @@ weights of the second network $\theta _{t}^{'}$ are replaced with the weights of
 the target network $\theta_{t}^{-}$ for the evaluation of the current greedy
 policy.
 
-To evaluate the results of Double Q-learning, we will display the value estimates for DQN and Double DQN on multiple ALE games.  These results will be shown in a plot overlaying both of the estimates for DQN and Double DQN at each training step. For determination of value accuracy, ground truth values will be displayed on the same plot by computing cumulative rewards for running the best learned policies at each step. We will also display a plot with the scores obtained at each training step from following DQN and Double DQN methods.
+To evaluate the results of Double Q-learning, we will display the value
+estimates for DQN and Double DQN on multiple ALE games.  These results will be
+shown in a plot overlaying both of the estimates for DQN and Double DQN at each
+training step. For determination of value accuracy, ground truth values will be
+displayed on the same plot by computing cumulative rewards for running the best
+learned policies at each step. We will also display a plot with the scores
+obtained at each training step from following DQN and Double DQN methods.
 
-
-
+\subsection{Clipped Double Q-learning}
 In addition, we will implement the Clipped Double Q-learning
 algorithm (\citet{fujimoto2018addressing}). 
 
@@ -179,27 +178,13 @@ algorithm (\citet{fujimoto2018addressing}).
     \label{fig:numcomments}
 \end{figure}
 
-To evaluate results for the Clipped Double Q-learning method, we will measure its performance against Q-learning through environments from OpenAI Gym. Each algorithm will be applied to the selected environments and be run for 1 million time steps, with the average reward over 10 episodes being calculated every 5000 time steps. The max average returns for the two algorithms will be displayed in a table. Learning curves will also be shown on plots to track algorithm performance across the time step intervals.
-
-\section{Literature Review}
-
-The popular Q-learning algorithm is known to overestimate action values under
-certain conditions. It was not previously known whether, in practice, such
-overestimations are common, whether they harm performance, and whether they can
-generally be prevented. Deep Reinforcement Learning with Double Q-learning
-presented the background of DQN algorithm, which combines Q-learning with a deep
-neural network, suffers from substantial overestimations in some games in the
-Atari 2600 domain (\citet{mnih2013playing}).
-
-In value-based reinforcement learning methods such as deep Q-learning, function
-approximation errors are known to lead to overestimated value estimates and
-suboptimal policies. We show that this problem persists in an actor-critic
-setting and propose novel mechanisms to minimize its effects on both the actor
-and critic. Clipped Double DQN algorithm takes the minimum value between a pair
-of critics to restrict overestimation and delays policy updates to reduce
-per-update error. We evaluate our method on the suite of OpenAI gym tasks,
-outperforming the state of the art in every environment tested
-(\citet{fujimoto2018addressing}).
+To evaluate results for the Clipped Double Q-learning method, we will measure
+its performance against Q-learning through environments from OpenAI Gym. Each
+algorithm will be applied to the selected environments and be run for 1 million
+time steps, with the average reward over 10 episodes being calculated every 5000
+time steps. The max average returns for the two algorithms will be displayed in
+a table. Learning curves will also be shown on plots to track algorithm
+performance across the time step intervals.
 
 % Import bibligraphy from ref.bib
 \bibliography{ref}
