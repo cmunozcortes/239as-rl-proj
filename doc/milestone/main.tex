@@ -71,6 +71,26 @@
 \maketitle
 
 \section{Introduction}
+% Motivation for DQN
+Q-learning, one of the most popular reinforcement learning algorithms, is known
+to overestimate action values because of the maximization step it includes. This
+issue extends to Deep Q-learning networks (DQN), which combine Q-learning with a
+flexible deep neural network to approximate the action-value function. Double
+Q-learning, which was first proposed to alleviate the overestimation issue in
+Q-learning, was subsequently shown to be effective in solving this problem in
+DQN and lead to state-of-the-art results on the Atari environment.
+
+% Methods
+On this project we will attempt to replicate a subset of the results reported on
+\cite{}. Namely, compare the action-value estimates on three Atari games, and
+the normalized score on six games, tested for 100 episodes per game with human
+starts. 
+
+%------------------------------------------------------------------------------%
+% TODO: Add motivation for clipped double Q-learning and methods
+%------------------------------------------------------------------------------%
+
+
 
 \section{Preliminary Results}
 
