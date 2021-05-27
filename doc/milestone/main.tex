@@ -80,23 +80,34 @@ performance of DQN, Double Q-learning, Double DQN, and Clipped Double Q-learning
 algorithms on three different Atari games.
 
 % Motivation for DQN
-Q-learning, one of the most popular reinforcement learning algorithms, is known
+Although Q-learning is one of the most popular reinforcement learning algorithms, it is known
 to overestimate action values because of the included maximization step. This
-issue extends to Deep Q-learning networks (DQN), which combine Q-learning with a
+issue extends to Deep Q-learning networks (DQN), which combines Q-learning with a
 flexible deep neural network to approximate the action-value function. Double
 Q-learning, which was proposed to alleviate the overestimation issue in
-Q-learning, was subsequently shown to be effective in solving this problem in
-DQN and lead to state-of-the-art results on the Atari environment.
+Q-learning, was subsequently shown to be effective in solving the weaknesses of
+DQN and producing state-of-the-art results in the Atari environment.
+
+% Motivation for Clipped Double Q-learning
+Clipped Double Q-learning is another algorithm that addresses the inherent DQN 
+overestimation problem. The algorithm avoids overestimation by taking the minimum of the two next-state
+action values produced by the two Q networks. In the event that one Q estimate is 
+greater than the other, we reduce it to the minimum, thus preventing
+overestimation. Another benefit of this algorithm is that the minimum operator
+provides higher value to states with lower variance estimation error.  This
+means that the minimization will lead to a preference for states with
+low-variance value estimates, resulting in safer policy updates with stable
+learning targets.
 
 % Methods
-In this project we will attempt to replicate a subset of the results reported in
-\cite{van2016deep}. Namely, this project will compare the action-value estimates of three Atari
-games, and the normalized score on six games, tested for 100 episodes per game
+The Double DQN and Clipped Double Q-learning algorithms both address DQN's
+overestimation bias. In this project we will compare the performance of DQN, 
+Double Q-learning, Double DQN, and Clipped Double Q-learning by replicating 
+a subset of the results reported in \cite{van2016deep}. Namely, this project 
+will compare the action-value estimates of three Atari games, and the 
+normalized score on six games, tested for 100 episodes per game
 with human starts. 
 
-%------------------------------------------------------------------------------%
-% TODO: Add motivation for clipped double Q-learning and methods
-%------------------------------------------------------------------------------%
 
 
 
