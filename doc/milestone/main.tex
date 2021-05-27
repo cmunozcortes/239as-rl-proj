@@ -71,18 +71,26 @@
 \maketitle
 
 \section{Introduction}
+This objective of this project is to describe the methodology and
+history of the algorithms described in \citet{van2016deep}, namely Q-learning,
+DQN, Double Q-learning, and Double DQN, as well as the Clipped Double Q-learning
+algorithm proposed in \citet{fujimoto2018addressing}. In addition to summarizing
+the history and methods of these algorithms, this project will also evaluate the
+performance of DQN, Double Q-learning, Double DQN, and Clipped Double Q-learning
+algorithms on three different Atari games.
+
 % Motivation for DQN
 Q-learning, one of the most popular reinforcement learning algorithms, is known
-to overestimate action values because of the maximization step it includes. This
+to overestimate action values because of the included maximization step. This
 issue extends to Deep Q-learning networks (DQN), which combine Q-learning with a
 flexible deep neural network to approximate the action-value function. Double
-Q-learning, which was first proposed to alleviate the overestimation issue in
+Q-learning, which was proposed to alleviate the overestimation issue in
 Q-learning, was subsequently shown to be effective in solving this problem in
 DQN and lead to state-of-the-art results on the Atari environment.
 
 % Methods
-On this project we will attempt to replicate a subset of the results reported on
-\cite{van2016deep}. Namely, compare the action-value estimates on three Atari
+In this project we will attempt to replicate a subset of the results reported in
+\cite{van2016deep}. Namely, this project will compare the action-value estimates of three Atari
 games, and the normalized score on six games, tested for 100 episodes per game
 with human starts. 
 
