@@ -41,7 +41,7 @@
 \DeclareMathOperator*{\argmin}{argmin}
 
 \title{ECE 239AS Reinforcement Learning\\
-       Project Proposal}
+       Project Milestone}
 
 % The \author macro works with any number of authors. There are two commands
 % used to separate the names and addresses of multiple authors: \And and \AND.
@@ -73,45 +73,48 @@
 \section{Introduction}
 This objective of this project is to describe the methodology and
 history of the algorithms described in \citet{van2016deep}, namely Q-learning,
-DQN, Double Q-learning, and Double DQN, as well as the Clipped Double Q-learning
-algorithm proposed in \citet{fujimoto2018addressing}. In addition to summarizing
+Deep Q-learning networks (DQN), Double Q-learning, and Double DQN, as well as the 
+Dueling DQN algorithm proposed in \citet{wang2015dueling}. In addition to summarizing
 the history and methods of these algorithms, this project will also evaluate the
-performance of DQN, Double Q-learning, Double DQN, and Clipped Double Q-learning
-algorithms on three different Atari games.
+performance of DQN, Double Q-learning, Double DQN, and Dueling DQN
+algorithms on four different Atari games.
 
 % Motivation for DQN
 Although Q-learning is one of the most popular reinforcement learning algorithms, it is known
 to overestimate action values because of the included maximization step. This
-issue extends to Deep Q-learning networks (DQN), which combines Q-learning with a
+issue extends to DQN, which combines Q-learning with a
 flexible deep neural network to approximate the action-value function. Double
 Q-learning, which was proposed to alleviate the overestimation issue in
 Q-learning, was subsequently shown to be effective in solving the weaknesses of
 DQN and producing state-of-the-art results in the Atari environment.
 
 % Motivation for Clipped Double Q-learning
-Clipped Double Q-learning is another algorithm that addresses the inherent DQN 
-overestimation problem. The algorithm avoids overestimation by taking the minimum of the two next-state
-action values produced by the two Q networks. In the event that one Q estimate is 
-greater than the other, we reduce it to the minimum, thus preventing
-overestimation. Another benefit of this algorithm is that the minimum operator
-provides higher value to states with lower variance estimation error.  This
-means that the minimization will lead to a preference for states with
-low-variance value estimates, resulting in safer policy updates with stable
-learning targets.
+%Clipped Double Q-learning is another algorithm that addresses the inherent DQN 
+%overestimation problem. The algorithm avoids overestimation by taking the minimum of the two next-state
+%action values produced by the two Q networks. In the event that one Q estimate is 
+%greater than the other, we reduce it to the minimum, thus preventing
+%overestimation. Another benefit of this algorithm is that the minimum operator
+%provides higher value to states with lower variance estimation error.  This
+%means that the minimization will lead to a preference for states with
+%low-variance value estimates, resulting in safer policy updates with stable
+%learning targets.
+
+% TODO: Provide motivation for Dueling DQN
 
 % Methods
-The Double DQN and Clipped Double Q-learning algorithms both address DQN's
+The Double DQN and Dueling DQN algorithms both address DQN's
 overestimation bias. In this project we will compare the performance of DQN, 
-Double Q-learning, Double DQN, and Clipped Double Q-learning by replicating 
+Double Q-learning, Double DQN, and Dueling DQN by replicating 
 a subset of the results reported in \cite{van2016deep}. Namely, this project 
-will compare the action-value estimates of three Atari games, and the 
-normalized score on six games, tested for 100 episodes per game
+will compare the action-value estimates of four Atari games, and the 
+normalized mean score on four games, tested for 100 episodes per game
 with human starts. 
 
-
-
-
 \section{Preliminary Results}
+The performance of DQN, Double DQN, and Dueling DQN was benchmarked on four
+Atari games: Breakout, Road Runner, Bowling, and Video Pinball. The plots 
+below show the mean score over 250 training epochs for DQN, Double DQN, 
+and Dueling DQN. The performance of DQN and Double DQN was comparable on Road Runner and Boxing. However, Double DQN performed better than DQN on Breakout and Video Pinball, demonstrating the negative effects of DQN's overestimations.
 
 % Import bibliography from ref.bib
 \bibliography{ref}
