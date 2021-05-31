@@ -204,9 +204,12 @@ training on each of the four selected Atari games.
     \label{fig:training}
 \end{figure}
 
-The mean scores achieved by DQN and Double DQN were comparable on Road Runner
-and Boxing. However, Double DQN performed better than DQN on Breakout and Video
-Pinball, demonstrating the negative effects of DQN's overestimations.
+The mean scores achieved by DQN, Double DQN, and Dueling DQN were comparable on Road Runner. 
+Additionally, DQN and Doulbe DQN produced comparable results on Bowling. However, Double DQN 
+performed better than DQN on Breakout and Video Pinball, demonstrating the negative effects 
+of DQN's overestimations. Dueling DQN produced problematic results in Boxing, Breakout, and
+Video Pinball, due to issues with training. Dueling DQN will be rerun for these games and
+updated results presented in the final report.
 
 % Import bibliography from ref.bib
 \bibliography{ref}
