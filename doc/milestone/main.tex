@@ -32,7 +32,9 @@
 \usepackage{xcolor}         % colors
 \usepackage{amsmath}
 \usepackage{graphicx}
-\usepackage[inline]{enumitem}
+%\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+%\usepackage{algorithm,algorithmicx}
+\usepackage{algpseudocode,algorithm,setspace}
 
 % Set bibliography style for natbib (called out by the nips style file)
 \bibliographystyle{abbrvnat}
@@ -40,6 +42,12 @@
 % argmax and argmin operators
 \DeclareMathOperator*{\argmax}{argmax}
 \DeclareMathOperator*{\argmin}{argmin}
+
+\newcommand{\multiline}[1]{%
+  \begin{tabularx}{\dimexpr\linewidth-\ALG@thistlm}[t]{@{}X@{}}
+    #1
+  \end{tabularx}
+}
 
 \title{ECE 239AS Reinforcement Learning\\
        Project Milestone Report}
@@ -75,9 +83,10 @@
 The objective of this project is to describe Double Deep Q Networks (DQN), an
 algorithm first proposed in \citet{van2016deep} to reduce overoptimistic
 action-value estimates in Deep Q Networks (\cite{mnih2015human}). A discussion
-of another improvement on Deep Q Networks, Dueling DQN (\cite{wang2016dueling}),
-will also be included for a more comprehensive survey.  Finally, a comparison of
-the performance of all three algorithms on four Atari games will be presented.
+of another improvement on Deep Q Networks---Dueling DQN
+(\cite{wang2016dueling})---will also be included for a more comprehensive
+survey.  Finally, a comparison of the performance of all three algorithms on
+four Atari games will be presented.
 
 Although Q-learning is one of the most popular reinforcement learning
 algorithms, it is known to overestimate action values because of the included
@@ -88,6 +97,37 @@ overestimation issue in Q-learning, was subsequently shown to be effective in
 solving the weaknesses of DQN and producing state-of-the-art results in the
 Atari environment.
 
+\begin{algorithm}
+%\setstretch{1.25}
+\caption{Deep Q-learning with experience replay}\label{alg:dqn}
+\begin{algorithmic}[1]
+    \State Initialize replay memory $\mathcal{D}$ to capacity $N$
+    \State Initialize action-value function $Q$ with random weights $\theta$
+    \State Initialize target action-value function $\smash{\hat{Q}}$ with
+    weights $\theta^- = \theta$
+    \For{episode $m \gets 1,\dots,M$}
+        \State Observe initial frame $x_1$ and preprocess frame to get state
+        $s_1$
+        \For{time step $t \gets 1,\dots,T$}
+            \State With probability $\varepsilon$ select a random action $a_t$;
+            otherwise select $a_t = \argmax_a Q(s_t, a; \theta)$
+            \State Execute action $a_t$ in emulator and observe reward $r_t$ and
+            image $x_{t+1}$
+            \State Preprocess $s_t$, $x_{t+1}$ to get $s_{t+1}$
+            \State Store transition $(s_t, a_t, r_t, s_{t+1})$ in replay buffer
+            $\mathcal{D}$
+            \State Sample uniformly a random minibatch of $N$ transitions $(s_j,
+            a_j, r_j, s_{j+1})$ from $\mathcal{D}$
+            \State Set $y_j = r_j$ if episode ends at step $j+1$; otherwise set
+            $y_j = r_j + \gamma \max_{a'} \hat{Q}(s_{j+1}, a'; \theta^-)$
+            \State Perform a stochastic gradient descent step on $J(\theta) =
+            \tfrac{1}{N} \sum_{j=1}^{N} (y_j - Q(s_j, a_j; \theta))^2$ \newline
+            \hspace*{4em} with respect to parameters $\theta$
+            \State Every $c$ steps reset $\smash{\hat{Q} = Q}$
+        \EndFor
+    \EndFor
+\end{algorithmic}
+\end{algorithm}
 %------------------------------------------------------------------------------%
 % TODO: Nathan & Ryan to include discussion on Dueling DQN
 %------------------------------------------------------------------------------%
