@@ -159,9 +159,7 @@ as Double DQN (or DDQN).
 % TODO: Nathan & Ryan to include a short discussion on Dueling DQN
 %------------------------------------------------------------------------------%
 
-%Dueling DQN operates on the observation that for many states, the action chosen 
-%has no noticeable effect on future events. There are also cases where estimation 
-%of state values is essential for every state, such as for bootstrapping based algorithms.
+
 The dueling network architecture by \cite{wang2016dueling} takes into account the 
 observation that for many states, it is unnecessary to estimate the value of each 
 action at every timestep. Dueling DQN utilizes the convolutional layers in DQN and 
@@ -175,8 +173,50 @@ For the final set of Q values, the two streams are aggregated with forward mappi
 as follows
 \begin{equation}
     Q(s,a; \theta, \beta)  = V(s; \theta, \beta) + (A(s, a; \theta, \alpha) - 
-    max_{a' \epsilon \abs{\textbf{\textit{A}}}} A(s, a; \theta, \alpha))
+    max_{a' \epsilon \vert \mathcal{A} \vert} A(s, a; \theta, \alpha))
 \end{equation}
+Algorithm~\ref{alg:double} shows the complete pseudocode for Dueling DQN.
+The learning target for Dueling DQN is
+\begin{equation}
+    y_i^{\text{DuelingDQN}} = r + \gamma \mathbb{E}_{a' \sim \pi (s') }
+    [Q(s', a'; \theta_{i})]
+\end{equation}
+
+%Dueling DQN algorithm
+\begin{algorithm}[ht]
+%\setstretch{1.25}
+\caption{Double DQN with Dueling network}\label{alg:double}
+\begin{algorithmic}[2]
+    \State Initialize empty replay buffer $\mathcal{D}$ to capacity $N$
+    \State Initialize $\theta$ - initial network parameters, $\theta^{-}$ - copy of $\theta$
+
+    \For{episode $m \gets 1,\dots,M$}
+        \State Initialize frame sequence $x \gets ()$ 
+        \For{time step $t \gets 1,\dots,T$}
+            \State Set state $s \gets x$, sample action $a \sim \pi_{\mathbb{B}}$
+            \State Sample next frame $x^{t}$ from environment $\mathbf{\varepsilon}$
+            given $(s,a)$ and receive reward $r$, and append $x^{t}$ to $x$
+            \State \textbf{if} $\vert x \vert > N_{f}$ \textbf{then} delete oldest frame
+            $x_{t_{min}}$ from $x$ \textbf{end}
+            \State Set $s' \gets x$, and add transition tuple $(s, a, r, s')$
+            to $\mathcal{D}$, 
+            \State \indent replacing the oldest tuple if $\mathcal{D} \geq N_{r}$
+            \State Sample a  minibatch of $N_{b}$ tuples $(s, a, r, s') \sim$
+            Unif$(\mathcal{D})$
+            \State Construct target values, one for each of the $N_{b}$ tuples:
+            \State Define $a^{max}(s';\theta) = argmax_{a'}Q(s', a'; \theta)$
+            \State Define $Q(s', a'; \theta)=V(s; \theta) + (A(s', a'; \theta)
+            - max_{a' \epsilon \vert \mathcal{A} \vert} A(s, a'; \theta))$
+            \State Set $y_{j} = r$ if s' is terminal; otherwise set
+            $y_{j} = r + \gamma Q(s', a^{max}(s';\theta); \theta^{-})$
+            \State Perform a gradient descent step with loss $\vert \vert y_j - Q(s_j, a_j; \theta) \vert \vert ^2$ 
+            \State Replace target parameters $\theta^{-} \gets \theta$ every $N^{-}$ steps 
+        \EndFor
+    \EndFor
+\end{algorithmic}
+
+
+\end{algorithm}
 
 
 
