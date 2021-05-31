@@ -159,6 +159,27 @@ as Double DQN (or DDQN).
 % TODO: Nathan & Ryan to include a short discussion on Dueling DQN
 %------------------------------------------------------------------------------%
 
+%Dueling DQN operates on the observation that for many states, the action chosen 
+%has no noticeable effect on future events. There are also cases where estimation 
+%of state values is essential for every state, such as for bootstrapping based algorithms.
+The dueling network architecture by \cite{wang2016dueling} takes into account the 
+observation that for many states, it is unnecessary to estimate the value of each 
+action at every timestep. Dueling DQN utilizes the convolutional layers in DQN and 
+DDQN, but splits the network into two different streams: one for the estimation of
+state-values and one for estimation of advantages for each action. This introduces 
+the advantage function, which takes into account the value and Q functions.
+\begin{equation}
+    A^{\pi}(s, a) = Q^{\pi}(s,a) - V^{\pi}(s)
+\end{equation}
+For the final set of Q values, the two streams are aggregated with forward mapping
+as follows
+\begin{equation}
+    Q(s,a; \theta, \beta)  = V(s; \theta, \beta) + (A(s, a; \theta, \alpha) - 
+    max_{a' \epsilon \abs{\textbf{\textit{A}}}} A(s, a; \theta, \alpha))
+\end{equation}
+
+
+
 \section{Preliminary Results}
 To conduct an evaluation of the performance of the algorhtms we used an
 implementation based on the Tensorpack framework (\cite{wu2016tensorpack}).
