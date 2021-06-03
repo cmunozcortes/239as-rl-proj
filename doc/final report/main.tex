@@ -1,1 +1,265 @@
+\documentclass{article}
 
+% if you need to pass options to natbib, use, e.g.:
+%     \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_2021
+
+% Silence warning about neurips package
+\usepackage{silence}
+\WarningFilter{latex}{You have requested package}
+
+% ready for submission
+%\usepackage{../neurips/neurips_2021}
+
+% to compile a preprint version, e.g., for submission to arXiv, add add the
+% [preprint] option:
+\usepackage[preprint]{../neurips/neurips_2021}
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+%\usepackage[final]{../neurips/neurips_2021}
+
+% to avoid loading the natbib package, add option nonatbib:
+%    \usepackage[nonatbib]{neurips_2021}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{algpseudocode,algorithm}
+
+% Set bibliography style for natbib (called out by the nips style file)
+\bibliographystyle{abbrvnat}
+
+% argmax and argmin operators
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+
+% Force algorithmic to use small font
+\makeatletter
+\renewcommand{\ALG@beginalgorithmic}{\small}
+\makeatother
+
+\title{ECE 239AS Reinforcement Learning\\
+       Project Milestone Report}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+
+\author{%
+    Ryan Chau \\
+    \texttt{chau\_ryan@yahoo.com}\\
+    \And
+    My-Quan Hong \\
+    \texttt{myquan@yahoo.com} \\
+    % examples of more authors
+    \And
+    Nathan Kang \\
+    \texttt{nkang@gseis.ucla.edu} \\
+    \And
+    Christopher Munoz \\
+    \texttt{cmunozcortes@ucla.edu} \\
+}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+The objective of this project is to describe Double Deep Q Networks (DQN), an
+algorithm first proposed in \citet{van2016deep} to reduce overoptimistic
+action-value estimates in Deep Q Networks (\cite{mnih2015human}). A discussion
+of another improvement in Deep Q-learning---Dueling DQN
+(\cite{wang2016dueling})---will also be included for a more comprehensive survey
+of value-based reinforcement learning (RL) algorithms.
+
+All three architectures are able to learn policies directly from preprocessed
+pixels from video games and they all achieve scores that surpass human-level
+performance on Atari 2600 games.  The survey will include a comparison of the
+performance of all three algorithms on four Atari games from the Arcade Learning
+Environment (ALE) (\cite{bellemare2013arcade}).
+
+Although Q-learning is one of the most popular reinforcement learning
+algorithms, it is known to overestimate action values because of the included
+maximization step. This issue extends to Deep Q-learning networks (DQN), which
+combines Q-learning with a flexible deep neural network to approximate the
+action-value function. Double Q-learning, which was proposed to alleviate the
+overestimation issue in Q-learning, was subsequently shown to be effective in
+solving the weaknesses of DQN and producing state-of-the-art results in the
+Atari environment.
+
+Algorithm~\ref{alg:dqn} shows the complete pseudocode for Deep Q-learning. The
+learning target is
+\begin{equation}\label{eq:dqn}
+    y_i^{\text{DQN}} = r + \gamma \max_{a'} \hat{Q}(s', a'; \theta^-)    
+\end{equation}
+where $\theta^-$ represents the parameters of the target network, and $\theta$
+the parameters of the online network.
+
+The $\max$ operator in \eqref{eq:dqn} uses the same network to select and to
+evaluate an action, which as \cite{van2016deep} demonstrated leads to
+overstimates of the action values. To reduce overstimations,
+\cite{hasselt2010double} showed that we can decouple action selection and action
+evaluation when computing the learning target in the original Q-learning
+algorithm. \cite{van2016deep} showed that the same idea can be applied to DQN to
+produce a new learning target,
+\begin{equation}
+    y_i^{\text{DoubleDQN}} = r + \gamma \hat{Q}(s', \argmax_{a'}
+    \hat{Q}(s',a';\theta_i) \theta^-)
+\end{equation}
+Greedy action selection is now done according to the online network with
+parameters $\theta$, but the value is estimated by the target network with
+parameters $\theta^-$.  This simple, yet effective, modification to DQN is known
+as Double DQN (or DDQN). 
+
+\begin{algorithm}[ht]
+%\setstretch{1.25}
+\caption{Deep Q-learning with experience replay}\label{alg:dqn}
+\begin{algorithmic}[1]
+    \State Initialize replay memory $\mathcal{D}$ to capacity $N$
+    \State Initialize action-value function $Q$ with random weights $\theta$
+    \State Initialize target action-value function $\smash{\hat{Q}}$ with
+    weights $\theta^- = \theta$
+    \For{episode $m \gets 1,\dots,M$}
+        \State Observe initial frame $x_1$ and preprocess frame to get state
+        $s_1$
+        \For{time step $t \gets 1,\dots,T$}
+            \State With probability $\varepsilon$ select a random action $a_t$;
+            otherwise select $a_t = \argmax_a Q(s_t, a; \theta)$
+            \State Execute action $a_t$ in emulator and observe reward $r_t$ and
+            image $x_{t+1}$
+            \State Preprocess $s_t$, $x_{t+1}$ to get $s_{t+1}$
+            \State Store transition $(s_t, a_t, r_t, s_{t+1})$ in replay buffer
+            $\mathcal{D}$
+            \State Sample uniformly a random minibatch of $N$ transitions $(s_j,
+            a_j, r_j, s_{j+1})$ from $\mathcal{D}$
+            \State Set $y_j = r_j$ if episode ends at step $j+1$; otherwise set
+            $\smash{y_j = r_j + \gamma \max_{a'} \hat{Q}(s_{j+1}, a';
+            \theta^-)}$
+            \State Perform a stochastic gradient descent step on $J(\theta) =
+            \tfrac{1}{N} \sum_{j=1}^{N} (y_j - Q(s_j, a_j; \theta))^2$ \newline
+            \hspace*{4em} with respect to parameters $\theta$
+            \State Every $c$ steps reset $\smash{\hat{Q} = Q}$
+        \EndFor
+    \EndFor
+\end{algorithmic}
+\end{algorithm}
+%------------------------------------------------------------------------------%
+% TODO: Nathan & Ryan to include a short discussion on Dueling DQN
+%------------------------------------------------------------------------------%
+
+
+The dueling network architecture by \cite{wang2016dueling} takes into account
+the observation that for many states, it is unnecessary to estimate the value of
+each action at every timestep. Dueling DQN utilizes the convolutional layers in
+DQN and DDQN, but splits the network into two different streams: one for the
+estimation of state-values and one for estimation of advantages for each action.
+This introduces the advantage function, which takes into account the value and Q
+functions.
+\begin{equation}
+    A^{\pi}(s, a) = Q^{\pi}(s,a) - V^{\pi}(s)
+\end{equation}
+
+For the final set of Q values, the two streams are aggregated with forward
+mapping as follows
+\begin{equation}
+    Q(s,a; \theta, \beta)  = V(s; \theta, \beta) + (A(s, a; \theta, \alpha) - 
+    \max_{a' \epsilon \vert \mathcal{A} \vert} A(s, a; \theta, \alpha))
+\end{equation}
+
+Algorithm~\ref{alg:double} shows the complete pseudocode for Dueling DQN.
+The learning target for Dueling DQN is
+\begin{equation}
+    y_i^{\text{DuelingDQN}} = r + \gamma \mathbb{E}_{a' \sim \pi (s') }
+    [Q(s', a'; \theta_{i})]
+\end{equation}
+
+%Dueling DQN algorithm
+\begin{algorithm}[ht]
+%\setstretch{1.25}
+\caption{Double DQN with Dueling network}\label{alg:double}
+\begin{algorithmic}[1]
+    \State Initialize empty replay buffer $\mathcal{D}$ to capacity $N$
+    \State Initialize $\theta$ - initial network parameters, $\theta^{-}$ - copy
+    of $\theta$
+
+    \For{episode $m \gets 1,\dots,M$}
+        \State Initialize frame sequence $x \gets ()$ 
+        \For{time step $t \gets 1,\dots,T$}
+            \State Set state $s \gets x$, sample action $a \sim
+            \pi_{\mathbb{B}}$
+            \State Sample next frame $x^{t}$ from environment
+            $\mathbf{\varepsilon}$
+            given $(s,a)$ and receive reward $r$, and append $x^{t}$ to $x$
+            \If{$\vert x \vert > N_{f}$}
+                \State delete oldest frame $x_{t_{\min}}$ from $x$
+            \EndIf
+            \State Set $s' \gets x$, and add transition tuple $(s, a, r, s')$ to
+            $\mathcal{D}$, replacing the oldest tuple if $\mathcal{D} \geq
+            N_{r}$
+            \State Sample a  minibatch of $N_{b}$ tuples $(s, a, r, s') \sim$
+            Unif$(\mathcal{D})$
+            \State Construct target values, one for each of the $N_{b}$ tuples:
+            \State Define $a^{\max}(s';\theta) = \argmax_{a'}Q(s', a'; \theta)$
+            \State Define $Q(s', a'; \theta)=V(s; \theta) + (A(s', a'; \theta)
+            - \max_{a' \epsilon \vert \mathcal{A} \vert} A(s, a'; \theta))$
+            \State Set $y_{j} = r$ if s' is terminal; otherwise set
+            $\smash{y_{j} = r + \gamma Q(s', a^{\max}(s';\theta); \theta^{-})}$
+            \State Perform a gradient descent step with loss $\vert \vert y_j -
+            Q(s_j, a_j; \theta) \vert \vert ^2$ 
+            \State Replace target parameters $\theta^{-} \gets \theta$ every
+            $N^{-}$ steps 
+        \EndFor
+    \EndFor
+\end{algorithmic}
+\end{algorithm}
+
+
+
+\section{Preliminary Results}
+To conduct an evaluation of the performance of the algorhtms we used an
+implementation based on the Tensorpack framework (\cite{wu2016tensorpack}).
+Tensorpack is an interface built on TensorFlow v1 that is focused on training
+speed. Its low overhead and support for training with a GPU provided us with a
+way to train the models from scratch in Google Colab Pro instances, within a
+reasonable amount of time (roughly 24 hours for each Atari game).
+
+Each model was trained for 6.225 million training steps (250 epochs) on the
+following games from the Atari Learning Environment (ALE)
+(\cite{bellemare2013arcade}): \texttt{Breakout-v0}, \texttt{RoadRunner-v0},
+\texttt{Boxing-v0}, and \texttt{VideoPinball-v0}.
+
+Figure \ref{fig:training} shows the scores achieved by the models during
+training on each of the four selected Atari games.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\linewidth]{double_dqn-mean_scores.png}
+    \caption{Mean score over training steps for selected games from the Atari
+    Learning Environment (ALE).}
+    \label{fig:training}
+\end{figure}
+
+The mean scores achieved by DQN, Double DQN, and Dueling DQN were comparable on
+Road Runner.  Additionally, DQN and Double DQN produced comparable results on
+Bowling. However, Double DQN performed better than DQN on Breakout and Video
+Pinball, demonstrating the negative effects of DQN's overestimations. Dueling
+DQN produced problematic results in Boxing, Breakout, and Video Pinball, due to
+issues with training. Dueling DQN will be rerun for these games and updated
+results presented in the final report.
+
+% Import bibliography from ref.bib
+\bibliography{ref}
+
+\end{document}
