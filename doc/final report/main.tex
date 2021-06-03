@@ -47,7 +47,7 @@
 \makeatother
 
 \title{ECE 239AS Reinforcement Learning\\
-       Project Milestone Report}
+       Project Final Report}
 
 % The \author macro works with any number of authors. There are two commands
 % used to separate the names and addresses of multiple authors: \And and \AND.
@@ -90,6 +90,7 @@ performance on Atari 2600 games.  The survey will include a comparison of the
 performance of all three algorithms on four Atari games from the Arcade Learning
 Environment (ALE) (\cite{bellemare2013arcade}).
 
+\section{DQN}
 Although Q-learning is one of the most popular reinforcement learning
 algorithms, it is known to overestimate action values because of the included
 maximization step. This issue extends to Deep Q-learning networks (DQN), which
@@ -107,6 +108,7 @@ learning target is
 where $\theta^-$ represents the parameters of the target network, and $\theta$
 the parameters of the online network.
 
+\section{Double DQN}
 The $\max$ operator in \eqref{eq:dqn} uses the same network to select and to
 evaluate an action, which as \cite{van2016deep} demonstrated leads to
 overstimates of the action values. To reduce overstimations,
@@ -159,7 +161,7 @@ as Double DQN (or DDQN).
 % TODO: Nathan & Ryan to include a short discussion on Dueling DQN
 %------------------------------------------------------------------------------%
 
-
+\section{Dueling DQN}
 The dueling network architecture by \cite{wang2016dueling} takes into account
 the observation that for many states, it is unnecessary to estimate the value of
 each action at every timestep. Dueling DQN utilizes the convolutional layers in
@@ -226,7 +228,6 @@ The learning target for Dueling DQN is
 \end{algorithm}
 
 
-
 \section{Preliminary Results}
 To conduct an evaluation of the performance of the algorhtms we used an
 implementation based on the Tensorpack framework (\cite{wu2016tensorpack}).
@@ -258,6 +259,9 @@ Pinball, demonstrating the negative effects of DQN's overestimations. Dueling
 DQN produced problematic results in Boxing, Breakout, and Video Pinball, due to
 issues with training. Dueling DQN will be rerun for these games and updated
 results presented in the final report.
+
+\section{Conclusion}
+TODO
 
 % Import bibliography from ref.bib
 \bibliography{ref}
