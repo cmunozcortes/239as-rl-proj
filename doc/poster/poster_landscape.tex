@@ -137,6 +137,12 @@
               }
           }
     \end{algorithm}
+    Note that the learning target is,
+    \begin{align*}
+        \boxed{y_i^{\text{DQN}} = r + \gamma \max_{a'}
+            \hat{Q}(s', a'; \theta^-)}
+    \end{align*}
+    where $\theta^-$ are the parameters of the \emph{target} network.
 }
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
