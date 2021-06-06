@@ -194,14 +194,15 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\headerbox{Dueling Network}{name=dueling, column=1, span=1, above=bottom}{
+\headerbox{Dueling Network Architecture}{name=dueling, column=1, span=1,
+    above=bottom}{
     In some states it is important to know which action to take, but in many
     other states the choice of action is inconsequential to what happens next.
     For bootstrapping based algorithms, however, estimating the state values for
     every state is of great importance. 
 
-    Motivated by this insight, the dueling network architecture uses two
-    streams of fully connected layers, instead of one as in DQN. One layer
+    Motivated by this insight, the dueling network architecture uses \textbf{two
+    streams of fully connected layers}, instead of one as in DQN. One layer
     provides an estimate for the value function, while the other estimates the
     advantage function. The two streams are combined to produce a single output
     $Q$ function using the following expression:
