@@ -1,0 +1,110 @@
+[32m[0604 22:28:20 @DQN.py:166][0m ENV: boxing.bin, Num Actions: 18
+[32m[0604 22:28:20 @registry.py:90][0m 'conv0': [?, 84, 84, 4] --> [?, 21, 21, 32]
+[32m[0604 22:28:20 @registry.py:90][0m 'conv1': [?, 21, 21, 32] --> [?, 11, 11, 64]
+[32m[0604 22:28:20 @registry.py:90][0m 'conv2': [?, 11, 11, 64] --> [?, 11, 11, 64]
+[32m[0604 22:28:20 @registry.py:90][0m 'fc0': [?, 11, 11, 64] --> [?, 512]
+[32m[0604 22:28:20 @registry.py:90][0m 'fct': [?, 512] --> [?, 18]
+[32m[0604 22:28:20 @sessinit.py:87][0m [5m[31mWRN[0m The following variables are in the checkpoint, but not found in the graph: global_step, learning_rate, target/conv0/W, target/conv0/b, target/conv0/prelu/alpha, target/conv1/W, target/conv1/b, target/conv1/prelu/alpha, target/conv2/W, target/conv2/b, target/conv2/prelu/alpha, target/fc0/W, target/fc0/b, target/fct/W, target/fct/b
+[32m[0604 22:28:21 @sessinit.py:114][0m Restoring checkpoint from train_log/DQN-boxing/model-6250000 ...
+[32m[0604 22:28:24 @common.py:86][0m Score: 100
+[32m[0604 22:28:25 @common.py:86][0m Score: 100
+[32m[0604 22:28:26 @common.py:86][0m Score: 91
+[32m[0604 22:28:27 @common.py:86][0m Score: 89
+[32m[0604 22:28:27 @common.py:86][0m Score: 100
+[32m[0604 22:28:28 @common.py:86][0m Score: 100
+[32m[0604 22:28:28 @common.py:86][0m Score: 96
+[32m[0604 22:28:30 @common.py:86][0m Score: 93
+[32m[0604 22:28:30 @common.py:86][0m Score: 90
+[32m[0604 22:28:31 @common.py:86][0m Score: 98
+[32m[0604 22:28:32 @common.py:86][0m Score: 84
+[32m[0604 22:28:33 @common.py:86][0m Score: 89
+[32m[0604 22:28:33 @common.py:86][0m Score: 97
+[32m[0604 22:28:35 @common.py:86][0m Score: 98
+[32m[0604 22:28:35 @common.py:86][0m Score: 100
+[32m[0604 22:28:36 @common.py:86][0m Score: 95
+[32m[0604 22:28:36 @common.py:86][0m Score: 97
+[32m[0604 22:28:38 @common.py:86][0m Score: 96
+[32m[0604 22:28:38 @common.py:86][0m Score: 93
+[32m[0604 22:28:39 @common.py:86][0m Score: 92
+[32m[0604 22:28:41 @common.py:86][0m Score: 67
+[32m[0604 22:28:41 @common.py:86][0m Score: 91
+[32m[0604 22:28:42 @common.py:86][0m Score: 97
+[32m[0604 22:28:43 @common.py:86][0m Score: 94
+[32m[0604 22:28:43 @common.py:86][0m Score: 100
+[32m[0604 22:28:45 @common.py:86][0m Score: 96
+[32m[0604 22:28:45 @common.py:86][0m Score: 89
+[32m[0604 22:28:46 @common.py:86][0m Score: 97
+[32m[0604 22:28:46 @common.py:86][0m Score: 91
+[32m[0604 22:28:48 @common.py:86][0m Score: 94
+[32m[0604 22:28:48 @common.py:86][0m Score: 84
+[32m[0604 22:28:49 @common.py:86][0m Score: 93
+[32m[0604 22:28:51 @common.py:86][0m Score: 84
+[32m[0604 22:28:51 @common.py:86][0m Score: 97
+[32m[0604 22:28:52 @common.py:86][0m Score: 100
+[32m[0604 22:28:53 @common.py:86][0m Score: 100
+[32m[0604 22:28:54 @common.py:86][0m Score: 83
+[32m[0604 22:28:54 @common.py:86][0m Score: 98
+[32m[0604 22:28:56 @common.py:86][0m Score: 86
+[32m[0604 22:28:56 @common.py:86][0m Score: 96
+[32m[0604 22:28:58 @common.py:86][0m Score: 93
+[32m[0604 22:28:58 @common.py:86][0m Score: 72
+[32m[0604 22:28:59 @common.py:86][0m Score: 100
+[32m[0604 22:28:59 @common.py:86][0m Score: 93
+[32m[0604 22:29:01 @common.py:86][0m Score: 95
+[32m[0604 22:29:02 @common.py:86][0m Score: 95
+[32m[0604 22:29:03 @common.py:86][0m Score: 92
+[32m[0604 22:29:03 @common.py:86][0m Score: 98
+[32m[0604 22:29:04 @common.py:86][0m Score: 92
+[32m[0604 22:29:05 @common.py:86][0m Score: 90
+[32m[0604 22:29:06 @common.py:86][0m Score: 100
+[32m[0604 22:29:06 @common.py:86][0m Score: 91
+[32m[0604 22:29:07 @common.py:86][0m Score: 93
+[32m[0604 22:29:08 @common.py:86][0m Score: 100
+[32m[0604 22:29:09 @common.py:86][0m Score: 92
+[32m[0604 22:29:10 @common.py:86][0m Score: 84
+[32m[0604 22:29:11 @common.py:86][0m Score: 95
+[32m[0604 22:29:12 @common.py:86][0m Score: 96
+[32m[0604 22:29:14 @common.py:86][0m Score: 89
+[32m[0604 22:29:14 @common.py:86][0m Score: 74
+[32m[0604 22:29:15 @common.py:86][0m Score: 98
+[32m[0604 22:29:16 @common.py:86][0m Score: 87
+[32m[0604 22:29:17 @common.py:86][0m Score: 92
+[32m[0604 22:29:17 @common.py:86][0m Score: 97
+[32m[0604 22:29:18 @common.py:86][0m Score: 96
+[32m[0604 22:29:19 @common.py:86][0m Score: 97
+[32m[0604 22:29:20 @common.py:86][0m Score: 91
+[32m[0604 22:29:20 @common.py:86][0m Score: 100
+[32m[0604 22:29:21 @common.py:86][0m Score: 96
+[32m[0604 22:29:22 @common.py:86][0m Score: 90
+[32m[0604 22:29:23 @common.py:86][0m Score: 90
+[32m[0604 22:29:23 @common.py:86][0m Score: 100
+[32m[0604 22:29:25 @common.py:86][0m Score: 88
+[32m[0604 22:29:25 @common.py:86][0m Score: 94
+[32m[0604 22:29:26 @common.py:86][0m Score: 96
+[32m[0604 22:29:26 @common.py:86][0m Score: 100
+[32m[0604 22:29:28 @common.py:86][0m Score: 97
+[32m[0604 22:29:28 @common.py:86][0m Score: 94
+[32m[0604 22:29:29 @common.py:86][0m Score: 99
+[32m[0604 22:29:31 @common.py:86][0m Score: 93
+[32m[0604 22:29:31 @common.py:86][0m Score: 78
+[32m[0604 22:29:32 @common.py:86][0m Score: 94
+[32m[0604 22:29:33 @common.py:86][0m Score: 90
+[32m[0604 22:29:34 @common.py:86][0m Score: 97
+[32m[0604 22:29:35 @common.py:86][0m Score: 96
+[32m[0604 22:29:35 @common.py:86][0m Score: 97
+[32m[0604 22:29:36 @common.py:86][0m Score: 100
+[32m[0604 22:29:37 @common.py:86][0m Score: 99
+[32m[0604 22:29:38 @common.py:86][0m Score: 82
+[32m[0604 22:29:39 @common.py:86][0m Score: 100
+[32m[0604 22:29:39 @common.py:86][0m Score: 98
+[32m[0604 22:29:40 @common.py:86][0m Score: 99
+[32m[0604 22:29:40 @common.py:86][0m Score: 91
+[32m[0604 22:29:41 @common.py:86][0m Score: 100
+[32m[0604 22:29:42 @common.py:86][0m Score: 96
+[32m[0604 22:29:43 @common.py:86][0m Score: 85
+[32m[0604 22:29:44 @common.py:86][0m Score: 82
+[32m[0604 22:29:45 @common.py:86][0m Score: 98
+[32m[0604 22:29:46 @common.py:86][0m Score: 90
+[32m[0604 22:29:46 @common.py:86][0m Score: 100
+[32m[0604 22:29:46 @common.py:91][0m Waiting for all the workers to finish the last run...
+[32m[0604 22:29:46 @common.py:114][0m Average Score: 93.36; Max Score: 100

@@ -1,0 +1,110 @@
+[32m[0605 07:57:46 @DQN.py:166][0m ENV: breakout.bin, Num Actions: 4
+[32m[0605 07:57:47 @registry.py:90][0m 'conv0': [?, 84, 84, 4] --> [?, 21, 21, 32]
+[32m[0605 07:57:48 @registry.py:90][0m 'conv1': [?, 21, 21, 32] --> [?, 11, 11, 64]
+[32m[0605 07:57:48 @registry.py:90][0m 'conv2': [?, 11, 11, 64] --> [?, 11, 11, 64]
+[32m[0605 07:57:48 @registry.py:90][0m 'fc0': [?, 11, 11, 64] --> [?, 512]
+[32m[0605 07:57:48 @registry.py:90][0m 'fct': [?, 512] --> [?, 4]
+[32m[0605 07:57:48 @sessinit.py:87][0m [5m[31mWRN[0m The following variables are in the checkpoint, but not found in the graph: global_step, learning_rate, target/conv0/W, target/conv0/b, target/conv0/prelu/alpha, target/conv1/W, target/conv1/b, target/conv1/prelu/alpha, target/conv2/W, target/conv2/b, target/conv2/prelu/alpha, target/fc0/W, target/fc0/b, target/fct/W, target/fct/b
+[32m[0605 07:57:51 @sessinit.py:114][0m Restoring checkpoint from train_log/RegDQN-breakout/model-5500000 ...
+[32m[0605 07:58:04 @common.py:86][0m Score: 404
+[32m[0605 07:58:11 @common.py:86][0m Score: 424
+[32m[0605 07:58:15 @common.py:86][0m Score: 174
+[32m[0605 07:58:17 @common.py:86][0m Score: 401
+[32m[0605 07:58:22 @common.py:86][0m Score: 236
+[32m[0605 07:58:23 @common.py:86][0m Score: 411
+[32m[0605 07:58:29 @common.py:86][0m Score: 428
+[32m[0605 07:58:29 @common.py:86][0m Score: 425
+[32m[0605 07:58:36 @common.py:86][0m Score: 407
+[32m[0605 07:58:40 @common.py:86][0m Score: 373
+[32m[0605 07:58:40 @common.py:86][0m Score: 33
+[32m[0605 07:58:50 @common.py:86][0m Score: 388
+[32m[0605 07:58:57 @common.py:86][0m Score: 423
+[32m[0605 07:58:58 @common.py:86][0m Score: 416
+[32m[0605 07:59:01 @common.py:86][0m Score: 358
+[32m[0605 07:59:05 @common.py:86][0m Score: 409
+[32m[0605 07:59:07 @common.py:86][0m Score: 316
+[32m[0605 07:59:13 @common.py:86][0m Score: 414
+[32m[0605 07:59:17 @common.py:86][0m Score: 404
+[32m[0605 07:59:21 @common.py:86][0m Score: 428
+[32m[0605 07:59:23 @common.py:86][0m Score: 415
+[32m[0605 07:59:27 @common.py:86][0m Score: 418
+[32m[0605 07:59:28 @common.py:86][0m Score: 405
+[32m[0605 07:59:31 @common.py:86][0m Score: 414
+[32m[0605 07:59:35 @common.py:86][0m Score: 427
+[32m[0605 07:59:39 @common.py:86][0m Score: 418
+[32m[0605 07:59:42 @common.py:86][0m Score: 424
+[32m[0605 07:59:45 @common.py:86][0m Score: 68
+[32m[0605 07:59:47 @common.py:86][0m Score: 426
+[32m[0605 07:59:52 @common.py:86][0m Score: 420
+[32m[0605 07:59:59 @common.py:86][0m Score: 420
+[32m[0605 08:00:05 @common.py:86][0m Score: 407
+[32m[0605 08:00:11 @common.py:86][0m Score: 231
+[32m[0605 08:00:20 @common.py:86][0m Score: 384
+[32m[0605 08:00:28 @common.py:86][0m Score: 864
+[32m[0605 08:00:36 @common.py:86][0m Score: 435
+[32m[0605 08:00:37 @common.py:86][0m Score: 424
+[32m[0605 08:00:44 @common.py:86][0m Score: 379
+[32m[0605 08:00:48 @common.py:86][0m Score: 427
+[32m[0605 08:00:56 @common.py:86][0m Score: 422
+[32m[0605 08:00:58 @common.py:86][0m Score: 417
+[32m[0605 08:01:03 @common.py:86][0m Score: 412
+[32m[0605 08:01:05 @common.py:86][0m Score: 368
+[32m[0605 08:01:09 @common.py:86][0m Score: 329
+[32m[0605 08:01:12 @common.py:86][0m Score: 399
+[32m[0605 08:01:15 @common.py:86][0m Score: 118
+[32m[0605 08:01:17 @common.py:86][0m Score: 398
+[32m[0605 08:01:27 @common.py:86][0m Score: 410
+[32m[0605 08:01:30 @common.py:86][0m Score: 464
+[32m[0605 08:01:35 @common.py:86][0m Score: 372
+[32m[0605 08:01:37 @common.py:86][0m Score: 415
+[32m[0605 08:01:47 @common.py:86][0m Score: 461
+[32m[0605 08:01:49 @common.py:86][0m Score: 413
+[32m[0605 08:01:55 @common.py:86][0m Score: 196
+[32m[0605 08:01:55 @common.py:86][0m Score: 424
+[32m[0605 08:02:01 @common.py:86][0m Score: 392
+[32m[0605 08:02:01 @common.py:86][0m Score: 301
+[32m[0605 08:02:07 @common.py:86][0m Score: 414
+[32m[0605 08:02:12 @common.py:86][0m Score: 415
+[32m[0605 08:02:15 @common.py:86][0m Score: 358
+[32m[0605 08:02:21 @common.py:86][0m Score: 418
+[32m[0605 08:02:27 @common.py:86][0m Score: 768
+[32m[0605 08:02:34 @common.py:86][0m Score: 376
+[32m[0605 08:02:41 @common.py:86][0m Score: 396
+[32m[0605 08:02:42 @common.py:86][0m Score: 427
+[32m[0605 08:02:47 @common.py:86][0m Score: 416
+[32m[0605 08:02:53 @common.py:86][0m Score: 392
+[32m[0605 08:02:59 @common.py:86][0m Score: 426
+[32m[0605 08:03:03 @common.py:86][0m Score: 401
+[32m[0605 08:03:09 @common.py:86][0m Score: 419
+[32m[0605 08:03:10 @common.py:86][0m Score: 422
+[32m[0605 08:03:14 @common.py:86][0m Score: 409
+[32m[0605 08:03:15 @common.py:86][0m Score: 415
+[32m[0605 08:03:22 @common.py:86][0m Score: 370
+[32m[0605 08:03:27 @common.py:86][0m Score: 385
+[32m[0605 08:03:31 @common.py:86][0m Score: 395
+[32m[0605 08:03:36 @common.py:86][0m Score: 371
+[32m[0605 08:03:36 @common.py:86][0m Score: 409
+[32m[0605 08:03:42 @common.py:86][0m Score: 367
+[32m[0605 08:03:49 @common.py:86][0m Score: 388
+[32m[0605 08:03:51 @common.py:86][0m Score: 428
+[32m[0605 08:03:56 @common.py:86][0m Score: 423
+[32m[0605 08:03:59 @common.py:86][0m Score: 362
+[32m[0605 08:04:02 @common.py:86][0m Score: 313
+[32m[0605 08:04:06 @common.py:86][0m Score: 54
+[32m[0605 08:04:13 @common.py:86][0m Score: 446
+[32m[0605 08:04:13 @common.py:86][0m Score: 395
+[32m[0605 08:04:21 @common.py:86][0m Score: 423
+[32m[0605 08:04:22 @common.py:86][0m Score: 424
+[32m[0605 08:04:29 @common.py:86][0m Score: 422
+[32m[0605 08:04:30 @common.py:86][0m Score: 433
+[32m[0605 08:04:36 @common.py:86][0m Score: 386
+[32m[0605 08:04:41 @common.py:86][0m Score: 369
+[32m[0605 08:04:48 @common.py:86][0m Score: 383
+[32m[0605 08:04:51 @common.py:86][0m Score: 407
+[32m[0605 08:04:58 @common.py:86][0m Score: 410
+[32m[0605 08:05:07 @common.py:86][0m Score: 386
+[32m[0605 08:05:11 @common.py:86][0m Score: 412
+[32m[0605 08:05:15 @common.py:86][0m Score: 422
+[32m[0605 08:05:18 @common.py:86][0m Score: 421
+[32m[0605 08:05:18 @common.py:91][0m Waiting for all the workers to finish the last run...
+[32m[0605 08:05:18 @common.py:114][0m Average Score: 390.65; Max Score: 864

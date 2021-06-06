@@ -1,4 +1,4 @@
-\documentclass[landscape,a0paper,fontscale=0.292]{baposter}
+\documentclass[landscape,a0paper,fontscale=0.32]{baposter}
 
 
 %\usepackage{algpseudocode,algorithm}
@@ -99,19 +99,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\headerbox{Issues with Deep Q Networks}{name=dqn, column=0, row=0, span=2}{
-    Despite being one of the most popular reinforcement algorithms,
-    \textbf{Q-learning} performs poorly in some stochastic environments. The
-    reason is that it produces overoptimistic estimates of the action values due
-    to the max operator that is used for action selection and evaluation with
-    the same network. \textbf{Double Q-learning} addresses this issue by
-    decoupling action selection from action evaluation using two networks: an
-    online network to select the greedy action, and a target network for
-    evaluation.  The issue of overestimation of the action values is also true
-    for \textbf{Deep Q Networks}, which combines Q-learning with a flexible deep
-    neural network to approximate the action-value function. With a simple, yet
-    effective modification, the idea of double Q-learning applied to DQN gave
-    rise to a new algorithm known as \textbf{Double DQN} (or DDQN).
+\headerbox{Value-based Deep Reinforcement Learning Algorithms}{name=dqn,
+    column=0, row=0, span=2}{
+    \textbf{On this project we examine three popular value-based reinforcement
+    learning algorithms: Deep Q-Network (DQN), Double DQN (DDQN), and Dueling
+    DQN}. All three architectures are able to learn policies directly from
+    high-dimensional inputs, e.g. preprocessed pixels from video games, using
+    end-to-end reinforcement learning, and achieve performance comparable to
+    expert human level on Atari 2600 games.
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \headerbox{Deep Q-Learning}{name=ddqn, column=0, below=dqn}{
@@ -142,6 +137,12 @@
               }
           }
     \end{algorithm}
+    Note that the learning target is,
+    \begin{align*}
+        \boxed{y_i^{\text{DQN}} = r + \gamma \max_{a'}
+            \hat{Q}(s', a'; \theta^-)}
+    \end{align*}
+    where $\theta^-$ are the parameters of the \emph{target} network.
 }
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -165,6 +166,11 @@
     \begin{thebibliography}{1}\itemsep=-0.01em
         \setlength{\baselineskip}{0.4em}
 
+        \bibitem{mnih2015human}
+        V.~Mnih, K.~Kavukcuoglu, D.~Silver, A.~Rusu, A.~A., J.~Veness,
+        M.G.~Bellemare, ... \& D.~Hassabis.
+        \newblock Human-level Control through Deep Reinforcement Learning
+        \newblock In {\em Nature, 518(7540), 529-533}, 2015.
         \bibitem{van2016deep}
         H.~van~Hasselt, A.~Guez, D.~Silver.
         \newblock Deep Reinforcement Learning with Double Q-learning
@@ -188,20 +194,55 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\headerbox{Dueling DQN}{name=dueling, column=1, span=1, above=bottom}{
+\headerbox{Dueling Network Architecture}{name=dueling, column=1, span=1,
+    above=bottom}{
+    In some states it is important to know which action to take, but in many
+    other states the choice of action is inconsequential to what happens next.
+    For bootstrapping based algorithms, however, estimating the state values for
+    every state is of great importance. 
 
+    Motivated by this insight, the dueling network architecture uses \textbf{two
+    streams of fully connected layers}, instead of one as in DQN. One layer
+    provides an estimate for the value function, while the other estimates the
+    advantage function. The two streams are combined to produce a single output
+    $Q$ function using the following expression:
+    \begin{align*}
+    \begin{split}
+        Q(s,a;\theta, & \alpha, \beta) = V(s; \theta, \beta) \\ 
+            & + \left( A(s, a; \theta, \alpha) -
+              \tfrac{1}{\abs{\mathcal{A}}} \sum_{a'}
+              A(s, a'; \theta, \alpha \right)
+    \end{split}
+    \end{align*}
+    This architecture leads to dramatic improvements over
+    DQN and DDQN and produces state-of-the-art results.
+
+    Since the inputs and outputs of the dueling network are the same as that of
+    the original DQN, the training algorithm for DQN and Double DQN can also be
+    used to train the dueling network.
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\headerbox{Double DQN}{name=algorithm, column=1, above=dueling,
+\headerbox{Addressing Bias: Double DQN}{name=algorithm, column=1, above=dueling,
     below=dqn}{
-    Double DQN introduces a new learning target where action selection is done
+    Despite being one of the most popular reinforcement algorithms,
+    \textbf{Q-learning} performs poorly in some stochastic environments. The
+    reason is that it produces overoptimistic estimates of the action values due
+    to the max operator that is used for action selection and evaluation with
+    the same network. \textbf{Double Q-learning} addresses this issue by
+    decoupling action selection from action evaluation using two networks: an
+    online network to select the greedy action, and a target network for
+    evaluation.  The issue is also true for \textbf{Deep Q Networks}, which
+    combine Q-learning with a flexible deep neural network to approximate the
+    action-value function. 
+
+    \textbf{Double DQN} introduces a new learning target where action selection is done
     according to the online network with parameters $\theta$, and action
     evaluation is done by the target network with parameters $\theta^-$.
-    \begin{align}
+    \begin{align*}
         \boxed{y_i^{\text{DDQN}} = r + \gamma \hat{Q} \left(s',
         \argmax_{a'} \hat{Q} \left(s', a'; \theta^-\right)\right)}
-    \end{align}
+    \end{align*}
 }
 \end{poster}%
 %
