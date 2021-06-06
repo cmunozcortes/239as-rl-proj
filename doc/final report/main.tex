@@ -77,28 +77,31 @@
 \maketitle
 
 \section{Introduction}
-The objective of this project is to describe Double Deep Q Networks (DQN), an
-algorithm first proposed in \citet{van2016deep} to reduce overoptimistic
-action-value estimates in Deep Q Networks (\cite{mnih2015human}). A discussion
-of another improvement in Deep Q-learning---Dueling DQN
-(\cite{wang2016dueling})---will also be included for a more comprehensive survey
-of value-based reinforcement learning (RL) algorithms.
-
-All three architectures are able to learn policies directly from preprocessed
-pixels from video games and they all achieve scores that surpass human-level
-performance on Atari 2600 games.  The survey will include a comparison of the
-performance of all three algorithms on four Atari games from the Arcade Learning
-Environment (ALE) (\cite{bellemare2013arcade}).
-
-\section{DQN}
 Although Q-learning is one of the most popular reinforcement learning
 algorithms, it is known to overestimate action values because of the included
 maximization step. This issue extends to Deep Q-learning networks (DQN), which
 combines Q-learning with a flexible deep neural network to approximate the
-action-value function. Double Q-learning, which was proposed to alleviate the
-overestimation issue in Q-learning, was subsequently shown to be effective in
-solving the weaknesses of DQN and producing state-of-the-art results in the
-Atari environment.
+action-value function. The objective of this project is to evaluate and describe
+Double Deep Q Networks (Double DQN), an algorithm first proposed in
+\citet{van2016deep} to reduce overoptimistic action-value estimates in Deep Q Networks (\cite{mnih2015human}). A discussion of another algorithm which improves on Deep Q-learning, Dueling DQN, will also be included for a more comprehensive survey
+of value-based reinforcement learning (RL) algorithms (\cite{wang2016dueling}).
+
+All three architectures, DQN, Double DQN, and Dueling DQN, are able to learn policies 
+directly from preprocessed pixels from video games and they all achieve scores that surpass human-level performance on Atari 2600 games.  The survey will include a 
+comparison of the performance of all three algorithms on four Atari games from the Arcade Learning Environment (ALE) (\cite{bellemare2013arcade}).
+
+\section{DQN}
+DQN combines Q-learning with a multi-layered neural network, and uses a target 
+network and experience replay to achieve stable training. In typical neural networks,
+the learning target changes frequently. However, an unstable learning target hinders
+training and learning. DQN uses a target network to copy parameters $\theta^-$ from
+the online network every $\tau$ steps to keep the target parameters fixed. 
+Additionally, neural networks are prone to overfitting current episodes. Experience
+replay solves this problem by storing experiences, including state transitions, 
+rewards, and actions, i.e. all the necessary data to perform Q-learning, and creates mini-batches to update the neural network.
+
+Despite the improvements introduced in the DQN algorithm, Q-learning is known to produce overoptimistic value estimates. Overoptimistic value estimates are not necessarily problematic, provided that all values are uniformly high and the relative action ranking is preserved. However, \citet{van2016deep} demonstrated that the DQN algorithm, which combines Q-learning with a neural network, overestimates value estimates substantially in empirical evaulations of Atari games 
+from the Arcade Learning Environment. Additionally, \citet{van2016deep} proved that these DQN overestimates are not uniform, and differ for different states and actions.
 
 Algorithm~\ref{alg:dqn} shows the complete pseudocode for Deep Q-learning. The
 learning target is
@@ -106,24 +109,9 @@ learning target is
     y_i^{\text{DQN}} = r + \gamma \max_{a'} \hat{Q}(s', a'; \theta^-)    
 \end{equation}
 where $\theta^-$ represents the parameters of the target network, and $\theta$
-the parameters of the online network.
-
-\section{Double DQN}
-The $\max$ operator in \eqref{eq:dqn} uses the same network to select and to
-evaluate an action, which as \cite{van2016deep} demonstrated leads to
-overstimates of the action values. To reduce overstimations,
-\cite{hasselt2010double} showed that we can decouple action selection and action
-evaluation when computing the learning target in the original Q-learning
-algorithm. \cite{van2016deep} showed that the same idea can be applied to DQN to
-produce a new learning target,
-\begin{equation}
-    y_i^{\text{DoubleDQN}} = r + \gamma \hat{Q}(s', \argmax_{a'}
-    \hat{Q}(s',a';\theta_i) \theta^-)
-\end{equation}
-Greedy action selection is now done according to the online network with
-parameters $\theta$, but the value is estimated by the target network with
-parameters $\theta^-$.  This simple, yet effective, modification to DQN is known
-as Double DQN (or DDQN). 
+the parameters of the online network. The source of Q-learning and DQN's optimistic
+tendencies is the learning target's max operator, which uses the same values to both 
+select and evaluate an action.
 
 \begin{algorithm}[ht]
 %\setstretch{1.25}
@@ -157,6 +145,28 @@ as Double DQN (or DDQN).
     \EndFor
 \end{algorithmic}
 \end{algorithm}
+
+\section{Double DQN}
+Double Q-learning, which was proposed to alleviate the
+overestimation issue in Q-learning, was subsequently shown to be effective in
+solving the weaknesses of DQN and producing state-of-the-art results. 
+Double DQN combines Double Q-learning with a neural network and produces more accurate value estimates and better policies than DQN.
+The $\max$ operator in \eqref{eq:dqn} uses the same network to select and to
+evaluate an action, which \cite{van2016deep} demonstrated leads to
+overestimates of the action values. To reduce overestimations,
+\cite{hasselt2010double} showed that action selection and action
+evaluation can be decoupled when computing the learning target in the original 
+Q-learning algorithm. \cite{van2016deep} showed that the same idea can be applied to DQN to produce a new learning target,
+\begin{equation}
+    y_i^{\text{DoubleDQN}} = r + \gamma \hat{Q}(s', \argmax_{a'}
+    \hat{Q}(s',a';\theta_i) \theta^-)
+\end{equation}
+Greedy action selection is now done according to the online network with
+parameters $\theta$, but the value is estimated by the target network with
+parameters $\theta^-$.  This simple, yet effective, modification to DQN is known
+as Double DQN (or DDQN). 
+
+
 %------------------------------------------------------------------------------%
 % TODO: Nathan & Ryan to include a short discussion on Dueling DQN
 %------------------------------------------------------------------------------%
@@ -253,12 +263,8 @@ training on each of the four selected Atari games.
 \end{figure}
 
 The mean scores achieved by DQN, Double DQN, and Dueling DQN were comparable on
-Road Runner.  Additionally, DQN and Double DQN produced comparable results on
-Bowling. However, Double DQN performed better than DQN on Breakout and Video
-Pinball, demonstrating the negative effects of DQN's overestimations. Dueling
-DQN produced problematic results in Boxing, Breakout, and Video Pinball, due to
-issues with training. Dueling DQN will be rerun for these games and updated
-results presented in the final report.
+Road Runner and Video Pinball.  Additionally, DQN and Double DQN produced 
+comparable results on Bowling. However, Double DQN performed better than DQN on Breakout and Video Pinball, demonstrating the negative effects of DQN's overestimations. Dueling DQN produced problematic results in Boxing and Breakout, due to issues with training. 
 
 \section{Conclusion}
 TODO
