@@ -59,6 +59,7 @@ for col in cols:
     new_col = col + '_norm'
     df[new_col] = (df[col] - df['Random']) / (df['Human'] - df['Random']) * 100
 
+# Generate a bar plot with the scores for each game
 plot_cols = df.columns.values.tolist()[-3:]
 df[plot_cols].plot.barh()
 plt.title('Normalized scores')
