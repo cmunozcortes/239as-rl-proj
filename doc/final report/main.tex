@@ -272,6 +272,28 @@ and random scores as follows:
     score_{normalized} = \frac{score_{agent} - score_{random}}{score_{human} - score_{random}}
 \end{equation}
 
+The random and human scores presented in Table \ref{tab:models} are the same 
+as those used by \cite{mnih2015human} and\cite{van2016deep}.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lcc} 
+\toprule
+\multicolumn{1}{c}{Game} & 
+\begin{tabular}[c]{@{}c@{}}Random\end{tabular} & 
+\begin{tabular}[c]{@{}c@{}}Human\end{tabular} & 
+\hline \hline
+Boxing & 0.10 & 4.30   \\
+Breakout & 1.70 & 31.80  \\
+Road Runner & 11.50 & 7845.00   \\
+Video Pinball & 16256.90 & 17297.60   \\
+\bottomrule
+\end{tabular}
+\caption{Random and Human Scores for Normalization}
+\label{tab:models}
+\end{table}
+
 Figure \ref{fig:training} shows the mean scores achieved by each model during
 training on each of the four selected Atari games. Figure \ref{fig:eval} shows the
 normalized scores achieved by each model during evaluation on each of the four 
