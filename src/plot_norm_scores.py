@@ -61,10 +61,10 @@ for col in cols:
 
 # Generate a bar plot with the scores for each game
 plot_cols = df.columns.values.tolist()[-3:]
-df[plot_cols].plot.barh()
+df[plot_cols].plot.barh(figsize=(13,5))
 plt.title('Normalized scores')
 
 # Show on screen and save plot
 plt.tight_layout()
-plt.savefig('norm_scores.png')
+plt.savefig('norm_scores.png', dpi=300)
 plt.show()
