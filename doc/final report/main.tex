@@ -257,17 +257,21 @@ implementation based on the Tensorpack framework (\cite{wu2016tensorpack}).
 Tensorpack is an interface built on TensorFlow v1 that is focused on training
 speed. Its low overhead and support for training with a GPU provided us with a
 way to train the models from scratch in Google Colab Pro instances, within a
-reasonable amount of time (roughly 24 hours for each Atari game).
+reasonable amount of time (roughly 24 hours for each Atari game). 
 
 Each model was trained for 5 million training steps (200 epochs) on the
 following games from the Atari Learning Environment (ALE)
 (\cite{bellemare2013arcade}): \texttt{Breakout-v0}, \texttt{RoadRunner-v0},
 \texttt{Boxing-v0}, and \texttt{VideoPinball-v0}. Note that Dueling DQN run of video 
 pinball was trained for roughly 170 epochs due to Google Colaboratory GPU usage 
-limits.
+limits. After training, the models were evaluated over 100 episodes in order to get 
+mean scores for each game. The scores were normalized based on recorded human scores 
+and random scores.
 
-Figure \ref{fig:training} shows the mean scores achieved by the models during
-training on each of the four selected Atari games.
+Figure \ref{fig:training} shows the mean scores achieved by each model during
+training on each of the four selected Atari games. Figure \ref{fig:eval} shows the
+normalized scores achieved by each model during evaluation on each of the four 
+selected Atari games.
 
 \begin{figure}[ht]
     \centering
@@ -275,6 +279,13 @@ training on each of the four selected Atari games.
     \caption{Mean score over training steps for selected games from the Atari
     Learning Environment (ALE).}
     \label{fig:training}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\linewidth]{norm_scores.png}
+    \caption{Normalized evaluation score over 100 episodes for selected games from the Atari Learning Environment (ALE).}
+    \label{fig:eval}
 \end{figure}
 
 The mean scores achieved by DQN, Double DQN, and Dueling DQN during training 
@@ -288,9 +299,14 @@ for Breakout and Boxing. The Dueling DQN mean scores for Boxing and Breakout wer
 significantly lower than DQN and DDQN, and produced equally poor evaluation results. 
 However, this poor performance is in alignment with the Atari empirical study results 
 presented in \cite{wang2016dueling}. In their paper, \cite{wang2016dueling} showed 
-that the Dueling DQN normalized score was -1.89\% worse than Double DQN for Bowling, 
-and -17.56\% worse than Double DQN for Breakout. 
+that the Dueling DQN normalized score was only 3.46\% better than Double DQN for 
+Boxing, and 17.56\% worse than Double DQN for Breakout. It is possible that Dueling 
+DQN was not trained long enough to demonstrate performance enhancements over DQN and
+Dueling DQN.
 
+In terms of model evaluation normalized scores, DQN performed the best in Boxing, 
+Double DQN performed best in Breakout, and Dueling DQN performed best in Road Runner 
+and Video Pinball. Evaulation results were low for Dueling DQN in Breakout and Boxing, which aligns with the mean training scores.
 
 \section{Conclusion}
 TODO
