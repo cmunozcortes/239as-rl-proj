@@ -242,7 +242,7 @@
     evaluation is done by the target network with parameters $\theta^-$.
     \begin{align*}
         \boxed{y_i^{\text{DDQN}} = r + \gamma \hat{Q} \left(s',
-        \argmax_{a'} \hat{Q} \left(s', a'; \theta^-\right)\right)}
+        \argmax_{a'} \hat{Q} \left(s', a'; \theta\right), \theta^-\right)}
     \end{align*}
 }
 \end{poster}%
