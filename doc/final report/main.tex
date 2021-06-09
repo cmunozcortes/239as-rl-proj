@@ -197,14 +197,14 @@ functions.
 \end{equation}
 
 For the final set of Q values, the two streams are aggregated with forward
-mapping as follows
+mapping as follows:
 \begin{equation}
     Q(s,a; \theta, \beta)  = V(s; \theta, \beta) + (A(s, a; \theta, \alpha) - 
     \max_{a' \epsilon \vert \mathcal{A} \vert} A(s, a; \theta, \alpha))
 \end{equation}
 
 Algorithm~\ref{alg:double} shows the complete pseudocode for Dueling DQN.
-The learning target for Dueling DQN is
+The learning target for Dueling DQN is:
 \begin{equation}
     y_i^{\text{DuelingDQN}} = r + \gamma \mathbb{E}_{a' \sim \pi (s') }
     [Q(s', a'; \theta_{i})]
@@ -266,7 +266,11 @@ following games from the Atari Learning Environment (ALE)
 pinball was trained for roughly 170 epochs due to Google Colaboratory GPU usage 
 limits. After training, the models were evaluated over 100 episodes in order to get 
 mean scores for each game. The scores were normalized based on recorded human scores 
-and random scores.
+and random scores as follows:
+
+\begin{equation}
+    score_{normalized} = \frac{score_{agent} - score_{random}}{score_{human} - score_{random}}
+\end{equation}
 
 Figure \ref{fig:training} shows the mean scores achieved by each model during
 training on each of the four selected Atari games. Figure \ref{fig:eval} shows the
@@ -293,7 +297,9 @@ were comparable on Road Runner, although Double DQN and Dueling DQN's mean score
 are slightly higher than DQN.  Additionally, DQN and Double DQN produced  comparable 
 mean score results on Bowling. However, Double DQN performed better than DQN on  
 Breakout and Video Pinball, demonstrating the negative effects of DQN's 
-overestimations.  Although Dueling DQN can produce dramatic improvements over 
+overestimations.  
+
+Although Dueling DQN can produce dramatic improvements over 
 DQN and Double DQN, this was not empirically observed in the Dueling DQN scores
 for Breakout and Boxing. The Dueling DQN mean scores for Boxing and Breakout were 
 significantly lower than DQN and DDQN, and produced equally poor evaluation results. 
