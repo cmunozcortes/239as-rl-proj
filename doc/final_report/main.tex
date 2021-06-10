@@ -204,14 +204,17 @@ the observation that for many states, it is unnecessary to estimate the value of
 each action at every timestep. Dueling DQN utilizes the convolutional layers in
 DQN and DDQN, but splits the network into two different streams: one for the
 estimation of state-values and one for estimation of advantages for each action.
-This introduces the advantage function, which takes into account the value and Q
-functions.
+This introduces the advantage function, which estimates how advantageous it is
+to select an action compared to others at the same state. This function takes
+takes into account the state-value and Q functions.
 \begin{equation}
     A^{\pi}(s, a) = Q^{\pi}(s,a) - V^{\pi}(s)
 \end{equation}
 
-For the final set of Q values, the two streams are aggregated with forward
-mapping as follows:
+Dueling DQN has a shortcoming in that the state-values and advantage function
+are not uniquely recoverable given Q alone. To address this problem,
+\cite{wang2016dueling} implement the following forward mapping for the final
+set of Q values:
 \begin{equation}
     Q(s,a; \theta, \beta)  = V(s; \theta, \beta) + (A(s, a; \theta, \alpha) - 
     \max_{a' \epsilon \vert \mathcal{A} \vert} A(s, a; \theta, \alpha))
@@ -223,6 +226,7 @@ The learning target for Dueling DQN is:
     y_i^{\text{DuelingDQN}} = r + \gamma \mathbb{E}_{a' \sim \pi (s') }
     [Q(s', a'; \theta_{i})]
 \end{equation}
+
 
 %Dueling DQN algorithm
 \begin{algorithm}[ht]
