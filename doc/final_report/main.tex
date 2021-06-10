@@ -76,6 +76,17 @@
 
 \maketitle
 
+\begin{abstract}
+    Q-learning was one of the most important breakthroughs in reinforcement
+    learning when it was first published by \cite{watkins1989learning}. Since
+    then, several new algorithms have improved upon different aspects of
+    Q-learning and have lead to state-of-the-art performance on various
+    benchmarks. On this project, we describe three such improvements: Deep
+    Q-learning, Double Deep Q-learning, and Dueling Deep Q-learning. We also
+    evaluate their performance on selected Atari games and discuss the
+    experimental results.
+\end{abstract}
+
 \section{Introduction}
 Although Q-learning is one of the most popular reinforcement learning
 algorithms, it is known to overestimate action values because of the included
@@ -96,7 +107,9 @@ will include a comparison of the performance of all three algorithms on four
 Atari games from the Arcade Learning Environment (ALE)
 (\cite{bellemare2013arcade}).
 
-\section{DQN}
+\section{Algorithms}
+
+\subsection{Deep Q Network}
 DQN combines Q-learning with a multi-layered neural network, and uses a target
 network and experience replay to achieve stable training. In typical neural
 networks, the learning target changes frequently. However, an unstable learning
@@ -160,7 +173,7 @@ values to both select and evaluate an action.
 \end{algorithmic}
 \end{algorithm}
 
-\section{Double DQN}
+\subsection{Double Deep Q Network}
 Double Q-learning, which was proposed to alleviate the overestimation issue in
 Q-learning, was subsequently shown to be effective in solving the weaknesses of
 DQN and producing state-of-the-art results.  Double DQN combines Double
@@ -186,7 +199,7 @@ as Double DQN (or DDQN).
 % TODO: Nathan & Ryan to include a short discussion on Dueling DQN
 %------------------------------------------------------------------------------%
 
-\section{Dueling DQN}
+\subsection{Dueling DQN}
 The dueling network architecture by \cite{wang2016dueling} takes into account
 the observation that for many states, it is unnecessary to estimate the value of
 each action at every timestep. Dueling DQN utilizes the convolutional layers in
@@ -253,7 +266,7 @@ The learning target for Dueling DQN is:
 \end{algorithm}
 
 
-\section{Preliminary Results}
+\section{Experimental Results}
 To conduct an evaluation of the performance of the algorhtms we used an
 implementation based on the Tensorpack framework (\cite{wu2016tensorpack}).
 Tensorpack is an interface built on TensorFlow v1 that is focused on training
@@ -314,31 +327,33 @@ selected Atari games.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\linewidth]{norm_scores.png}
-    \caption{Normalized evaluation score over 100 episodes for selected games from the Atari Learning Environment (ALE).}
+    \caption{Normalized evaluation score over 100 episodes for selected games
+    from the Atari Learning Environment (ALE).}
     \label{fig:eval}
 \end{figure}
 
-The mean scores achieved by DQN, Double DQN, and Dueling DQN during training 
-were comparable on Road Runner, although Double DQN and Dueling DQN's mean scores
-are slightly higher than DQN.  Additionally, DQN and Double DQN produced  comparable 
-mean score results on Bowling. However, Double DQN performed better than DQN on  
-Breakout and Video Pinball, demonstrating the negative effects of DQN's 
-overestimations.  
+The mean scores achieved by DQN, Double DQN, and Dueling DQN during training
+were comparable on Road Runner, although Double DQN and Dueling DQN's mean
+scores are slightly higher than DQN.  Additionally, DQN and Double DQN produced
+comparable mean score results on Bowling. However, Double DQN performed better
+than DQN on  Breakout and Video Pinball, demonstrating the negative effects of
+DQN's overestimations.  
 
-Although Dueling DQN can produce dramatic improvements over 
-DQN and Double DQN, this was not empirically observed in the Dueling DQN scores
-for Breakout and Boxing. The Dueling DQN mean scores for Boxing and Breakout were 
-significantly lower than DQN and DDQN, and produced equally poor evaluation results. 
-However, this poor performance is in alignment with the Atari empirical study results 
-presented in \cite{wang2016dueling}. In their paper, \cite{wang2016dueling} showed 
-that the Dueling DQN normalized score was only 3.46\% better than Double DQN for 
-Boxing, and 17.56\% worse than Double DQN for Breakout. It is possible that Dueling 
-DQN was not trained long enough to demonstrate performance enhancements over DQN and
-Dueling DQN.
+Although Dueling DQN can produce dramatic improvements over DQN and Double DQN,
+this was not empirically observed in the Dueling DQN scores for Breakout and
+Boxing. The Dueling DQN mean scores for Boxing and Breakout were significantly
+lower than DQN and DDQN, and produced equally poor evaluation results.  However,
+this poor performance is in alignment with the Atari empirical study results
+presented in \cite{wang2016dueling}. In their paper, \cite{wang2016dueling}
+showed that the Dueling DQN normalized score was only 3.46\% better than Double
+DQN for Boxing, and 17.56\% worse than Double DQN for Breakout. It is possible
+that Dueling DQN was not trained long enough to demonstrate performance
+enhancements over DQN and Dueling DQN.
 
-In terms of model evaluation normalized scores, DQN performed the best in Boxing, 
-Double DQN performed best in Breakout, and Dueling DQN performed best in Road Runner 
-and Video Pinball. Evaulation results were low for Dueling DQN in Breakout and Boxing, which aligns with the mean training scores.
+In terms of model evaluation normalized scores, DQN performed the best in
+Boxing, Double DQN performed best in Breakout, and Dueling DQN performed best in
+Road Runner and Video Pinball. Evaulation results were low for Dueling DQN in
+Breakout and Boxing, which aligns with the mean training scores.
 
 \section{Conclusion}
 TODO
