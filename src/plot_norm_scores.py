@@ -66,5 +66,5 @@ plt.title('Normalized scores')
 
 # Show on screen and save plot
 plt.tight_layout()
-plt.savefig('norm_scores.png', dpi=300)
+plt.savefig('norm_scores.png', dpi=600)
 plt.show()
