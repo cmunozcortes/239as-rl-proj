@@ -42,9 +42,9 @@
 \DeclareMathOperator*{\argmin}{argmin}
 
 % Force algorithmic to use small font
-\makeatletter
-\renewcommand{\ALG@beginalgorithmic}{\small}
-\makeatother
+%\makeatletter
+%\renewcommand{\ALG@beginalgorithmic}{\small}
+%\makeatother
 
 \title{ECE 239AS Project Final Report \\ A Brief Survey of Q-learning Methods}
 
@@ -160,12 +160,12 @@ values to both select and evaluate an action.
             $\mathcal{D}$
             \State Sample uniformly a random minibatch of $N$ transitions $(s_j,
             a_j, r_j, s_{j+1})$ from $\mathcal{D}$
-            \State Set $y_j = r_j$ if episode ends at step $j+1$; otherwise set
-            $\smash{y_j = r_j + \gamma \max_{a'} \hat{Q}(s_{j+1}, a';
-            \theta^-)}$
+            \State Set $y_j = r_j$ if episode ends at step $j+1$; \newline
+                \hspace*{4em} otherwise set $\smash{y_j = r_j + \gamma \max_{a'}
+                \hat{Q}(s_{j+1}, a'; \theta^-)}$
             \State Perform a stochastic gradient descent step on $J(\theta) =
             \tfrac{1}{N} \sum_{j=1}^{N} (y_j - Q(s_j, a_j; \theta))^2$ \newline
-            \hspace*{4em} with respect to parameters $\theta$
+                \hspace*{4em} with respect to parameters $\theta$
             \State Every $c$ steps reset $\smash{\hat{Q} = Q}$
         \EndFor
     \EndFor
@@ -192,11 +192,6 @@ Greedy action selection is now done according to the online network with
 parameters $\theta$, but the value is estimated by the target network with
 parameters $\theta^-$.  This simple, yet effective, modification to DQN is known
 as Double DQN (or DDQN). 
-
-
-%------------------------------------------------------------------------------%
-% TODO: Nathan & Ryan to include a short discussion on Dueling DQN
-%------------------------------------------------------------------------------%
 
 \subsection{Dueling DQN}
 The dueling network architecture by \cite{wang2016dueling} takes into account
@@ -244,7 +239,8 @@ The learning target for Dueling DQN is:
             \pi_{\mathbb{B}}$
             \State Sample next frame $x^{t}$ from environment
             $\mathbf{\varepsilon}$
-            given $(s,a)$ and receive reward $r$, and append $x^{t}$ to $x$
+            given $(s,a)$ and receive reward $r$, and append \newline
+                \hspace*{4em} $x^{t}$ to $x$
             \If{$\vert x \vert > N_{f}$}
                 \State delete oldest frame $x_{t_{\min}}$ from $x$
             \EndIf
@@ -295,7 +291,7 @@ recorded human scores and random scores as follows:
 The random and human scores presented in Table \ref{tab:models} are the same 
 as those used by \cite{mnih2015human} and \cite{van2016deep}.
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \small
 \begin{tabular}{lcc} 
@@ -315,9 +311,9 @@ Video Pinball & 16256.90 & 17297.60   \\
 \end{table}
 
 Figure \ref{fig:training} shows the mean scores achieved by each model during
-training on each of the four selected Atari games. Figure \ref{fig:eval} shows the
-normalized scores achieved by each model during evaluation on each of the four 
-selected Atari games.
+training on each of the four selected Atari games. Figure \ref{fig:eval} shows
+the normalized scores achieved by each model during evaluation on each of the
+four selected Atari games.
 
 \begin{figure}[ht]
     \centering
@@ -359,7 +355,43 @@ Road Runner and Video Pinball. Evaulation results were low for Dueling DQN in
 Breakout and Boxing, which aligns with the mean training scores.
 
 \section{Conclusion}
-TODO
+Deep Q-learning methods are some of the core algorithms in Reinforcement
+Learning and they are behind some of the most important breakthroughs in the
+field. Deep Q Networks, developed by DeepMind in 2015, reached (and in many
+cases surpassed) human-level performance across a variety of Atari games. DQN
+combined the classical Q-learning algorithm developed by
+\cite{watkins1989learning} with deep neural networks, and a technique known as
+\emph{experience replay}. DQN, however, suffered from the same issue as
+Q-learning, namely overestimation of the action values due to the max operator
+used in action selection and evaluation. Double Q-learning, which reduced
+overoptimistic value estimation in standard Q-learning, was also shown to be an
+effective proposition in DQN. The algorithm, which came to be known as Double
+DQN, effectively used two networks to decouple action selection and action
+evaluation. Evaluation of the algorithm on games from the Atari Learning
+Environment showed that reducing overestimation of action values with Double DQN
+considerably improved performance on several games and led to better policies
+than DQN. In that sense, we were sucessful in replicating these results; we
+observed better scores for Double DQN in three out of the four games, and worse
+results in one of the four games, though the latter was expected based on the
+results reported in \cite{van2016deep}.
+
+Dueling DQN, developed by \cite{wang2016dueling}, represents another improvement
+over DQN. Motivated by the fact that in many states the choice of action is
+inconsequential, Dueling DQN splits the single stream of fully connected layers
+into two: one to estimate the state-value function and the other to estimate the
+advantage function. Both estimates are combined at the last layer into a single
+Q-function. Now, since Dueling DQN shares the same input-output relationship as
+DQN and Double DQN, all learning algorithms with Q networks (such as DQN and
+Double DQN) can be used to train the dueling architecture. Our evaluation of the
+Dueling DQN architecture on selected Atari games yielded results that generally
+matched those reported by \cite{wang2016dueling} on the four games. In the game
+of video pinball, we saw the highest performance increased for Dueling DQN over
+DQN and DDQN. In boxing, our evaluation results did not quite match those from
+\cite{wang2016dueling}; while the results from the latter were positive, but
+worse than DQN and DDQN, ours were negative and much significantly worse than
+DQN and DDQN. The likely reason for this discrepancy is that we only trained for
+4-5 million training steps compared to 200 million as reported on the references
+papers.
 
 % Import bibliography from ref.bib
 \bibliography{ref}
