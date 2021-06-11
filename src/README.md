@@ -20,12 +20,10 @@ pip install tensorflow-gpu==1.15
 ```
 Install dependencies by `pip install 'gym[atari]'`.
 ### With ALE (paper's setting):
-
 Download an [atari rom](https://github.com/openai/atari-py/tree/gdb/atari_py/atari_roms), e.g.:
 ```
 wget https://github.com/openai/atari-py/raw/gdb/atari_py/atari_roms/breakout.bin
 ```
-
 ### With gym's Atari:
 
 Install gym and atari_py. Use `--env BreakoutDeterministic-v4` instead of the ROM file.
