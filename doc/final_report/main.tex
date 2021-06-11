@@ -264,14 +264,15 @@ The learning target for Dueling DQN is:
 \end{algorithmic}
 \end{algorithm}
 
-
 \section{Experimental Results}
 To conduct an evaluation of the performance of the algorithms we used an
-implementation based on the Tensorpack framework (\cite{wu2016tensorpack}).
-Tensorpack is an interface built on TensorFlow v1 that is focused on training
-speed. Its low overhead and support for training with a GPU provided us with a
-way to train the models from scratch in Google Colab Pro instances, within a
-reasonable amount of time (roughly 24 hours for each Atari game). 
+implementation\footnote{Find source code at
+\url{https://github.com/cmunozcortes/239as-rl-proj}} based on the Tensorpack
+framework (\cite{wu2016tensorpack}). Tensorpack is an interface built on
+TensorFlow v1 that is focused on training speed. Its low overhead and support
+for training with a GPU provided us with a way to train the models from scratch
+in Google Colab Pro instances, within a reasonable amount of time (roughly 24
+hours for each Atari game). 
 
 Each model was trained for 5 million training steps (200 epochs) on the
 following games from the Atari Learning Environment (ALE)
