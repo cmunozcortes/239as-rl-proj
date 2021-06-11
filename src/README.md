@@ -9,7 +9,7 @@ Install `tensorpack`. This is a wrapper around `tensorflow` (very much like
 ```
 pip install --upgrade git+https://github.com/tensorpack/tensorpack.git
 ```
-Now, install `tensorflow`. Supported versions are $\geq 1.5$ and $<2$.
+Now, install `tensorflow`. Supported versions are `1.x`.
 ```
 pip install tensorflow==1.15
 ```
